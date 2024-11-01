@@ -33,8 +33,25 @@ const LessonPlanGenerator = () => {
 
   const handleExportPDF = () => {
     const doc = new jsPDF();
-    doc.text(editableResult, 10, 10); // Add the text at position (10, 10)
-    doc.save("Lesson_Plan.pdf"); // Save the document with the given filename
+    const lineHeight = 10;
+    const marginLeft = 10;
+    const marginTop = 10;
+    const maxLineWidth = doc.internal.pageSize.width - marginLeft * 2;
+    const maxPageHeight = doc.internal.pageSize.height - marginTop * 2;
+    
+    const lines = doc.splitTextToSize(editableResult, maxLineWidth);
+    let cursorY = marginTop;
+    
+    lines.forEach((line) => {
+      if (cursorY + lineHeight > maxPageHeight) {
+        doc.addPage(); // Add a new page if the current page is full
+        cursorY = marginTop; // Reset cursor to top of new page
+      }
+      doc.text(line, marginLeft, cursorY);
+      cursorY += lineHeight;
+    });
+    
+    doc.save("Lesson_Plan.pdf");
   };
 
   return (

@@ -1,53 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-function App() {
-  const [formData, setFormData] = useState({
-    text1: '',
-    text2: ''
-  });
+const App = () => {
+  const [input1, setInput1] = useState("");
+  const [input2, setInput2] = useState("");
+  const [result, setResult] = useState("");
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
-  };
+  const handleGenerateContent = async () => {
+    try {
+      const apiKey = import.meta.env.VITE_GEMINI_KEY;  // Use import.meta.env for Vite
+      const genAI = new GoogleGenerativeAI(apiKey);
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form Data:', formData);
+      // Combine input1 and input2 as the prompt
+      const prompt = `${input1} ${input2}`;
+      console.log("Prompt:", prompt);
+      const response = await model.generateContent(prompt);
+      setResult(response.response.text());
+    } catch (error) {
+      console.error("Error generating content:", error);
+      setResult("Error generating content");
+    }
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>
-            Text 1:
-            <input
-              type="text"
-              name="text1"
-              value={formData.text1}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Text 2:
-            <input
-              type="text"
-              name="text2"
-              value={formData.text2}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
-        <button type="submit">Submit</button>
-      </form>
+      <h1>Google Gemini Content Generator</h1>
+      <input
+        type="text"
+        placeholder="Input 1"
+        value={input1}
+        onChange={(e) => setInput1(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Input 2"
+        value={input2}
+        onChange={(e) => setInput2(e.target.value)}
+      />
+      <button onClick={handleGenerateContent}>Generate Content</button>
+      {result && <p>Result: {result}</p>}
     </div>
   );
-}
+};
 
 export default App;

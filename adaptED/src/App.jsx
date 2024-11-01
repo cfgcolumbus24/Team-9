@@ -13,7 +13,7 @@ const App = () => {
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
       // Combine input1 and input2 as the prompt
-      const prompt = `${input1} ${input2}`;
+      const prompt = `Create a lesson plan for teaching ${input1}. The lesson plan should be tailored for ${input2}. Include a clear objective, materials needed, a step-by-step outline, and suggestions for assessment. Make sure there are sections where the teacher can fill in specific details to customize the plan.`;;
       console.log("Prompt:", prompt);
       const response = await model.generateContent(prompt);
       setResult(response.response.text());

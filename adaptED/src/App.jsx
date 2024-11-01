@@ -4,7 +4,7 @@ import LessonPlanGenerator from "./components/LessonPlanGenerator";
 const App = () => {
   return (
     <div>
-      <h1>Google Gemini Content Generator</h1>
+      <h1>adaptED</h1>
       <LessonPlanGenerator />
     </div>
   );

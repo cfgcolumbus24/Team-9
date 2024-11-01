@@ -35,20 +35,20 @@ const LessonPlanGenerator = () => {
     <div>
       <input
         type="text"
-        placeholder="Input 1"
+        placeholder="What to Teach"
         value={input1}
         onChange={(e) => setInput1(e.target.value)}
       />
       <input
         type="text"
-        placeholder="Input 2"
+        placeholder="Who's Attending"
         value={input2}
         onChange={(e) => setInput2(e.target.value)}
       />
-      <button onClick={handleGenerateContent}>Generate Content</button>
+      <button onClick={handleGenerateContent}>Generate Lesson Plan</button>
       {result && (
         <div>
-          <h2>Generated Lesson Plan (Editable)</h2>
+          <h2>Generated Lesson Plan</h2>
           <textarea
             value={editableResult}
             onChange={handleEditChange}

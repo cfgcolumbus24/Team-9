@@ -2,11 +2,11 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import dotenv from "dotenv";
 dotenv.config();
 
-// const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 
-// console.log("GEMINI_KEY:", process.env.GEMINI_KEY);
+console.log("GEMINI_KEY:", process.env.GEMINI_KEY);
 
-const genAI = new GoogleGenerativeAI("API KEY"); // replace with your API key
+// const genAI = new GoogleGenerativeAI("API KEY"); // replace with your API key
 
 async function generateLessonPlan(whatToTeach, whosAttending) {
   try {

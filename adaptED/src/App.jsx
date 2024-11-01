@@ -8,12 +8,12 @@ const App = () => {
 
   const handleGenerateContent = async () => {
     try {
-      const apiKey = import.meta.env.VITE_GEMINI_KEY;  // Use import.meta.env for Vite
+      const apiKey = import.meta.env.VITE_GEMINI_KEY; // Use import.meta.env for Vite
       const genAI = new GoogleGenerativeAI(apiKey);
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
       // Combine input1 and input2 as the prompt
-      const prompt = `Create a lesson plan for teaching ${input1}. The lesson plan should be tailored for ${input2}. Include a clear objective, materials needed, a step-by-step outline, and suggestions for assessment. Make sure there are sections where the teacher can fill in specific details to customize the plan.`;;
+      const prompt = `Create a lesson plan for teaching ${input1}. The lesson plan should be tailored for ${input2}. Include a clear objective, materials needed, a step-by-step outline, and suggestions for assessment. Make sure there are sections where the teacher can fill in specific details to customize the plan.`;
       console.log("Prompt:", prompt);
       const response = await model.generateContent(prompt);
       setResult(response.response.text());
@@ -21,6 +21,19 @@ const App = () => {
       console.error("Error generating content:", error);
       setResult("Error generating content");
     }
+  };
+
+  const formatLessonPlan = (text) => {
+    const sections = text
+      .split(/\*\*|\*/)
+      .filter((section) => section.trim() !== "");
+    return (
+      <div>
+        {sections.map((section, index) => (
+          <p key={index}>{section}</p>
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -39,7 +52,12 @@ const App = () => {
         onChange={(e) => setInput2(e.target.value)}
       />
       <button onClick={handleGenerateContent}>Generate Content</button>
-      {result && <p>Result: {result}</p>}
+      {result && (
+        <div>
+          <h2>Generated Lesson Plan</h2>
+          {formatLessonPlan(result)}
+        </div>
+      )}
     </div>
   );
 };

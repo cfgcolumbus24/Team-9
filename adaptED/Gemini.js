@@ -6,8 +6,6 @@ const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 
 console.log("GEMINI_KEY:", process.env.GEMINI_KEY);
 
-// const genAI = new GoogleGenerativeAI("API KEY"); // replace with your API key
-
 async function generateLessonPlan(whatToTeach, whosAttending) {
   try {
     const prompt = `Create a lesson plan for teaching ${whatToTeach}. The lesson plan should be tailored for ${whosAttending}. Include a clear objective, materials needed, a step-by-step outline, and suggestions for assessment. Make sure there are sections where the teacher can fill in specific details to customize the plan.`;

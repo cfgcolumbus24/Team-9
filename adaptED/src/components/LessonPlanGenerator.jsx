@@ -64,23 +64,25 @@ const LessonPlanGenerator = () => {
       console.error("User is not authenticated");
       return;
     }
-
-    // Define the JSON structure for the lesson plan
-    const lessonPlan = {
-      whatToTeach: whatToTeachInput,
-      whoIsAttending: whoIsAttendingInput,
-      content: editableResult,
-      timestamp: new Date().toISOString(),
+  
+    // Define the JSON structure for the lesson plan, wrapped under "content"
+    const lessonPlanEntry = {
+      content: {
+        whatToTeach: whatToTeachInput,
+        whoIsAttending: whoIsAttendingInput,
+        lessonContent: editableResult,
+        timestamp: new Date().toISOString(),
+      }
     };
-
-    // Update Firestore with the lesson plan JSON
+  
+    // Update Firestore with the lesson plan JSON under "content" key
     const userRef = doc(db, "users", userEmail);
     await updateDoc(userRef, {
-      lesson_plans: arrayUnion(lessonPlan)
+      lesson_plans: arrayUnion(lessonPlanEntry)
     });
-
-    console.log("Lesson plan successfully saved in Firestore as JSON.");
-  };
+  
+    console.log("Lesson plan successfully saved in Firestore as JSON under 'content' key.");
+  };  
 
   return (
     <div className="flex flex-col items-center p-8 bg-gray-100 min-h-screen">

@@ -52,7 +52,7 @@ const DisplayLessons = () => {
                             <div key={index} className="p-4 border rounded-lg shadow-md bg-white">
                                 <h2 className="text-lg font-semibold mb-2">Lesson Plan {index + 1}</h2>
                                 <pre className="text-sm text-gray-700 whitespace-pre-wrap">
-                                    {JSON.stringify(lesson, null, 2)}
+                                    {lesson.content.lessonContent || "No content available"}
                                 </pre>
                             </div>
                         ))

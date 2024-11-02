@@ -63,40 +63,41 @@ const DisplayLessons = () => {
     };
 
     return (
-        <div className="p-4">
-          <h1 className="text-2xl font-bold mb-4 text-center">Lesson Plans</h1>
-          {loading ? (
-            <p>Loading...</p>
-          ) : (
-            <div className="relative flex justify-center items-center">
-              <button onClick={() => scrollCarousel(-1)} className="absolute left-0 p-2 bg-[#611171] text-white rounded-full hover:bg-[#4a0f5b] transition">
-                &lt;
-              </button>
-              <div className="carousel flex overflow-x-auto snap-x snap-mandatory scroll-smooth w-[70%] mx-auto" ref={carouselRef} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
-                {lessonPlans.length > 0 ? (
-                  lessonPlans.map((lesson, index) => (
-                    <div key={index} className="min-w-[350px] max-w-[350px] max-h-[600px] flex-shrink-0 snap-center p-5 border rounded-lg shadow-md bg-white mx-3 overflow-hidden">
-                      <Link to={`/lesson/${index}`} state={{ lesson }}>
-                        <h2 className="text-xl font-semibold mb-3 text-blue-500 hover:underline">Lesson Plan {index + 1}</h2>
-                      </Link>
-                      <div className="max-h-[500px] overflow-y-auto">
-                        <pre className="text-sm text-gray-700 whitespace-pre-wrap">
-                          {lesson.content.lessonContent || "No content available"}
-                        </pre>
-                      </div>
+      <div className="p-4">
+        <h1 className="text-2xl font-bold mb-4 text-center">Lesson Plans</h1>
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <div className="relative flex justify-center items-center">
+            <button onClick={() => scrollCarousel(-1)} className="absolute left-0 p-2 bg-[#611171] text-white rounded-full hover:bg-[#4a0f5b] transition">
+              &lt;
+            </button>
+            <div className="carousel flex justify-center items-center gap-3 overflow-x-auto snap-x snap-mandatory scroll-smooth w-[70%] mx-auto" ref={carouselRef} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+              {lessonPlans.length > 0 ? (
+                lessonPlans.map((lesson, index) => (
+                  <div key={index} className="min-w-[350px] max-w-[350px] max-h-[600px] flex-shrink-0 snap-center p-5 border rounded-lg shadow-md bg-white mx-3 overflow-hidden">
+                    <Link to={`/lesson/${index}`} state={{ lesson }}>
+                      <h2 className="text-xl font-semibold mb-3 text-blue-500 hover:underline">Lesson Plan {index + 1}</h2>
+                    </Link>
+                    <div className="max-h-[500px] overflow-y-auto">
+                      <pre className="text-sm text-gray-700 whitespace-pre-wrap">
+                        {lesson.content.lessonContent || "No content available"}
+                      </pre>
                     </div>
-                  ))
-                ) : (
-                  <p>{error || "No lesson plans found."}</p>
-                )}
-              </div>
-              <button onClick={() => scrollCarousel(1)} className="absolute right-0 p-2 bg-[#611171] text-white rounded-full hover:bg-[#4a0f5b] transition">
-                &gt;
-              </button>
+                  </div>
+                ))
+              ) : (
+                <p>{error || "No lesson plans found."}</p>
+              )}
             </div>
-          )}
-        </div>
-      );
+            <button onClick={() => scrollCarousel(1)} className="absolute right-0 p-2 bg-[#611171] text-white rounded-full hover:bg-[#4a0f5b] transition">
+              &gt;
+            </button>
+          </div>
+        )}
+      </div>
+    );
+    
 };
 
 export default DisplayLessons;

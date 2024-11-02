@@ -1,10 +1,10 @@
 import React from "react";
-import FieldPiece from "../components/FieldPiece";
+import DisplayLessons from "../Components/DisplayLessons";
 
 const Home = () => {
   return (
     <div>
-      <FieldPiece />
+      <DisplayLessons />
     </div>
   );
 };

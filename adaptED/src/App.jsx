@@ -1,39 +1,19 @@
 import React, { useState, useEffect } from "react";
 import LessonPlanGenerator from "./components/LessonPlanGenerator";
 import TeacherClassButton from "./components/TeacherClassButton";
+import TeacherProfile from "./components/TeacherProfile";
 import "./App.css";
-import { signInWithGoogle, auth } from "./components/config/firebase"; // Ensure you have auth imported
+import { signInWithGoogle, auth } from "./components/config/firebase";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState(null);
-  const [teacherInfo, setTeacherInfo] = useState(null);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         setIsAuthenticated(!!user);
-        setUser({
-          name: user.displayName,
-          email: user.email,
-        });
-
-        try {
-          const teacherDocRef = doc(db, "USERS", user.email);
-          const teacherDoc = await getDoc(teacherDocRef);
-
-          if (teacherDoc.exists()) {
-            setTeacherInfo(teacherDoc.data());
-          } else {
-            console.log("No such document!");
-          }
-        } catch (error) {
-          console.error("Error fetching teacher data from Firestore:", error);
-        }
       } else {
         setIsAuthenticated(false);
-        setUser(null);
-        setTeacherInfo(null);
       }
     });
 
@@ -55,7 +35,6 @@ function App() {
     );
   }
 
-  // Main content after signing in
   const classes = [
     { className: "Math 101", description: "Introduction to Algebra" },
     { className: "Math 102", description: "Geometry Basics" },
@@ -67,6 +46,7 @@ function App() {
     <div>
       <h1>adaptED</h1>
       <div>
+        <TeacherProfile />
         <h2>Your Classes</h2>
         {classes.map((course, index) => (
           <TeacherClassButton
@@ -75,12 +55,6 @@ function App() {
             description={course.description}
           />
         ))}
-        {user && (
-          <div>
-            <h3>{user.name}</h3>
-            <h3>{user.email}</h3>
-          </div>
-        )}
       </div>
       <LessonPlanGenerator />
     </div>

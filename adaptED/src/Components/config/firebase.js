@@ -25,7 +25,7 @@ export const signInWithGoogle = () => {
       const email = result.user.email;
 
       try {
-        await setDoc(doc(db, "teacher", email), {
+        await setDoc(doc(db, "users", email), {
           name: name,
           email: email,
           signUpDate: new Date().toISOString(),

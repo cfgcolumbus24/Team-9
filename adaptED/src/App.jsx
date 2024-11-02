@@ -1,21 +1,21 @@
+// src/App.jsx
 import React from "react";
-import LessonPlanGenerator from "./components/LessonPlanGenerator";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import TeacherClassButton from './Components/TeacherClassButton'
-import FieldPiece from './Components/FieldPiece'
-import PerClassRetentionTable from './Components/PerClassRetentionTable'
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
 
 function App() {
-  
   return (
     <div>
-      <FieldPiece></FieldPiece>
-      <TeacherClassButton></TeacherClassButton>
-      <h1>adaptED</h1>
-      <PerClassRetentionTable></PerClassRetentionTable>
-      <LessonPlanGenerator></LessonPlanGenerator>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Router>
     </div>
   );
-};
+}
 
 export default App;

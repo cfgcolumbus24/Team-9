@@ -17,6 +17,10 @@ function App() {
           <Route path="/lessonplanner" element={<LessonPlanner />} />
         </Routes>
       </Router>
+
+      <TeacherClassButton></TeacherClassButton>
+      <PerClassRetentionTable></PerClassRetentionTable>
+      <LessonPlanGenerator></LessonPlanGenerator>
     </div>
   );
 }

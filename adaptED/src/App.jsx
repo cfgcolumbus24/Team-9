@@ -10,6 +10,10 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Retention from "./pages/Retention";
 import LessonPlanner from "./pages/LessonPlanner";
+import TeacherClassButton from "./Components/TeacherClassButton";
+import LessonPlanGenerator from "./components/LessonPlanGenerator";
+import PerClassRetentionTable from "./Components/PerClassRetentionTable";
+
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -59,16 +63,10 @@ function App() {
           <Route path="/profile" element={<TeacherProfile />}></Route>
         </Routes>
       </Router>
-      <h1>adaptED</h1>
-      <h2>Your Classes</h2>
-      {classes.map((course, index) => (
-        <TeacherClassButton
-          key={index}
-          className={course.className}
-          description={course.description}
-        />
-      ))}
-      <LessonPlanGenerator />
+
+      <TeacherClassButton></TeacherClassButton>
+      <PerClassRetentionTable></PerClassRetentionTable>
+      <LessonPlanGenerator></LessonPlanGenerator>
     </div>
   );
 }

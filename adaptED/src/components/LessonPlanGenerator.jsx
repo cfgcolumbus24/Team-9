@@ -7,11 +7,11 @@ import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 const LessonPlanGenerator = () => {
   const [whatToTeachInput, setWhatToTeachInput] = useState("");
   const [whoIsAttendingInput, setWhoIsAttendingInput] = useState("");
+  const [languageInput, setLanguageInput] = useState(""); // New state for language
   const [result, setResult] = useState("");
   const [editableResult, setEditableResult] = useState("");
-  const [saveStatus, setSaveStatus] = useState(null); // State to track save status
+  const [saveStatus, setSaveStatus] = useState(null);
 
-  // Retrieve the user's email from localStorage (set during Google Sign-In)
   const userEmail = localStorage.getItem("email");
 
   const handleGenerateContent = async () => {
@@ -20,16 +20,14 @@ const LessonPlanGenerator = () => {
       const genAI = new GoogleGenerativeAI(apiKey);
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-
-      
       const prompt = `
-      Create a structured lesson plan for teaching ${whatToTeachInput} to ${whoIsAttendingInput}. Begin by specifying the subject and grade level, as well as the topic and estimated time for the lesson. Next, list 2-3 specific learning objectives that describe what students should be able to understand or accomplish by the end of the lesson. Provide a list of essential materials needed for the lesson, noting any optional materials that could further enhance understanding.
-      
-      In the lesson procedure, break down the plan into five sections. Start with an Introduction (5 minutes) that uses a relatable, real-world scenario to introduce the main concept. In the Core Concepts section (10 minutes), introduce key terms or principles through clear explanations and examples. For Guided Practice (15 minutes), describe a collaborative activity where students work in pairs or groups to practice the concept with sample problems. Include Independent Practice (10 minutes) with individual exercises to reinforce the lesson. Finish with a brief Assessment (5 minutes) to gauge students' understanding, such as a quick worksheet check or observing their explanations.
-      
-      Add a section on Differentiation, detailing strategies for supporting students at different ability levels, such as simplifying problems for those who need extra help or adding challenges for advanced students. Include Adaptations that consider technology or other adjustments, like online games or simulations, to suit different learning styles. Finally, describe the methods you will use to assess students' understanding formally and informally, such as worksheet collection or real-time observation. Keep your explanations and examples clear to ensure students are engaged, understand the material, and can apply what they've learned.
-    `;
-    
+        Create a structured lesson plan for teaching ${whatToTeachInput} to ${whoIsAttendingInput} in ${languageInput}. Begin by specifying the subject and grade level, as well as the topic and estimated time for the lesson. Next, list 2-3 specific learning objectives that describe what students should be able to understand or accomplish by the end of the lesson. Provide a list of essential materials needed for the lesson, noting any optional materials that could further enhance understanding.
+        
+        In the lesson procedure, break down the plan into five sections. Start with an Introduction (5 minutes) that uses a relatable, real-world scenario to introduce the main concept. In the Core Concepts section (10 minutes), introduce key terms or principles through clear explanations and examples. For Guided Practice (15 minutes), describe a collaborative activity where students work in pairs or groups to practice the concept with sample problems. Include Independent Practice (10 minutes) with individual exercises to reinforce the lesson. Finish with a brief Assessment (5 minutes) to gauge students' understanding, such as a quick worksheet check or observing their explanations.
+        
+        Add a section on Differentiation, detailing strategies for supporting students at different ability levels, such as simplifying problems for those who need extra help or adding challenges for advanced students. Include Adaptations that consider technology or other adjustments, like online games or simulations, to suit different learning styles. Finally, describe the methods you will use to assess students' understanding formally and informally, such as worksheet collection or real-time observation. Keep your explanations and examples clear to ensure students are engaged, understand the material, and can apply what they've learned.
+      `;
+
       const response = await model.generateContent(prompt);
       const generatedText = response.response.text();
       setResult(generatedText);
@@ -70,7 +68,7 @@ const LessonPlanGenerator = () => {
   const handleSaveAsJSON = async () => {
     if (!userEmail) {
       console.error("User is not authenticated");
-      setSaveStatus("error"); // Set status to error if user is not authenticated
+      setSaveStatus("error");
       return;
     }
 
@@ -79,27 +77,28 @@ const LessonPlanGenerator = () => {
         content: {
           whatToTeach: whatToTeachInput,
           whoIsAttending: whoIsAttendingInput,
+          language: languageInput,
           lessonContent: editableResult,
           timestamp: new Date().toISOString(),
-        }
+        },
       };
 
       const userRef = doc(db, "users", userEmail);
       await updateDoc(userRef, {
-        lesson_plans: arrayUnion(lessonPlanEntry)
+        lesson_plans: arrayUnion(lessonPlanEntry),
       });
 
-      setSaveStatus("success"); // Set status to success on successful save
+      setSaveStatus("success");
     } catch (error) {
       console.error("Error saving lesson plan:", error);
-      setSaveStatus("error"); // Set status to error on failure
+      setSaveStatus("error");
     }
   };
 
   return (
     <div className="flex flex-col items-center p-8 bg-gray-100 min-h-screen">
-    <h1 className="text-2xl font-bold mb-8 text-[#ea057e]">Lesson Plan Generator</h1>
-     
+      <h1 className="text-2xl font-bold mb-8 text-[#ea057e]">Lesson Plan Generator</h1>
+
       <div className="w-full max-w-md space-y-4">
         <input
           type="text"
@@ -108,7 +107,7 @@ const LessonPlanGenerator = () => {
           onChange={(e) => setWhatToTeachInput(e.target.value)}
           className="w-full px-4 py-2 text-gray-800 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-       
+
         <input
           type="text"
           placeholder="Who is Attending"
@@ -116,7 +115,15 @@ const LessonPlanGenerator = () => {
           onChange={(e) => setWhoIsAttendingInput(e.target.value)}
           className="w-full px-4 py-2 text-gray-800 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-       
+
+        <input
+          type="text"
+          placeholder="Language"
+          value={languageInput}
+          onChange={(e) => setLanguageInput(e.target.value)}
+          className="w-full px-4 py-2 text-gray-800 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+
         <button
           onClick={handleGenerateContent}
           className="w-full py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out"
@@ -128,15 +135,14 @@ const LessonPlanGenerator = () => {
       {result && (
         <div className="w-full max-w-2xl mt-8">
           <h2 className="text-xl font-semibold mb-4 text-gray-700">Generated Lesson Plan (Editable)</h2>
-         
-          <textarea
-          value={editableResult}
-          onChange={handleEditChange}
-          rows="10"
-           className="w-full p-4 text-[#ea057e] border border-gray-300 rounded-lg shadow-sm resize-vertical focus:outline-none focus:ring-2 focus:ring-blue-500"
-/>
 
-         
+          <textarea
+            value={editableResult}
+            onChange={handleEditChange}
+            rows="10"
+            className="w-full p-4 text-[#ea057e] border border-gray-300 rounded-lg shadow-sm resize-vertical focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
           <button
             onClick={handleExportPDF}
             className="w-full mt-4 py-2 px-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out"
@@ -151,7 +157,6 @@ const LessonPlanGenerator = () => {
             Save to Firestore as JSON
           </button>
 
-          {/* Success or Error Message */}
           {saveStatus === "success" && (
             <p className="text-green-600 font-semibold mt-4">Lesson plan saved successfully!</p>
           )}

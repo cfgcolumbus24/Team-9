@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import ReactMarkdown from 'react-markdown';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from './config/firebase';
 import { Link } from 'react-router-dom';
@@ -85,12 +86,12 @@ const DisplayLessons = () => {
                 lessonPlans.map((lesson, index) => (
                   <div key={index} className="min-w-[350px] max-w-[350px] max-h-[600px] flex-shrink-0 snap-center p-5 border rounded-lg shadow-md bg-white mx-3 overflow-hidden">
                     <Link to={`/lesson/${index}`} state={{ lesson }}>
-                      <h2 className="text-xl font-semibold mb-3 text-blue-500 hover:underline">Lesson Plan {index + 1}</h2>
+                      <h2 className="text-xl font-semibold mb-3 text-[#ea057e] hover:underline">Lesson Plan {index + 1}</h2>
                     </Link>
                     <div className="max-h-[500px] overflow-y-auto">
-                      <pre className="text-sm text-gray-700 whitespace-pre-wrap">
+                      <ReactMarkdown className="text-sm text-gray-700">
                         {lesson.content.lessonContent || "No content available"}
-                      </pre>
+                      </ReactMarkdown>
                     </div>
                   </div>
                 ))

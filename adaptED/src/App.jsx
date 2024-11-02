@@ -6,16 +6,15 @@ import { signInWithGoogle, auth } from "./components/config/firebase"; // Ensure
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Listen to authentication state changes
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      setIsAuthenticated(!!user); // Set to true if user exists, false otherwise
+      setIsAuthenticated(!!user);
     });
-    return () => unsubscribe(); // Clean up the listener on component unmount
+    return () => unsubscribe();
   }, []);
 
-  // Render Google Sign-In page if not authenticated
   if (!isAuthenticated) {
     return (
       <div className="sign-in-page">
@@ -51,6 +50,12 @@ function App() {
             description={course.description}
           />
         ))}
+        {user && (
+          <div>
+            <h3>{user.name}</h3>
+            <h3>{user.email}</h3>
+          </div>
+        )}
       </div>
       <LessonPlanGenerator />
     </div>

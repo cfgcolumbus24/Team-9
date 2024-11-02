@@ -41,28 +41,53 @@ const DisplayLessons = () => {
     }, [userEmail]);
 
     return (
-        <div className="p-4">
-            <h1 className="text-2xl font-bold mb-4">Lesson Plans</h1>
-            {loading ? (
-                <p>Loading...</p>
-            ) : (
-                <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                    {lessonPlans.length > 0 ? (
-                        lessonPlans.map((lesson, index) => (
-                            <div key={index} className="p-4 border rounded-lg shadow-md bg-white">
-                                <h2 className="text-lg font-semibold mb-2">Lesson Plan {index + 1}</h2>
-                                <pre className="text-sm text-gray-700 whitespace-pre-wrap">
-                                    {JSON.stringify(lesson, null, 2)}
-                                </pre>
-                            </div>
-                        ))
-                    ) : (
-                        <p>No lesson plans found.</p>
-                    )}
-                </div>
+      <div className="p-4">
+        <h1 className="text-2xl font-bold mb-4 text-center">Lesson Plans</h1>
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <div className="relative flex justify-center items-center">
+            {/* Left button */}
+            {lessonPlans.length > 1 && (
+              <button onClick={() => scrollCarousel(-1)} className="absolute left-0 p-2 bg-[#611171] text-white rounded-full hover:bg-[#4a0f5b] transition">
+                &lt;
+              </button>
             )}
-        </div>
+            <div
+              className={`carousel flex ${lessonPlans.length === 1 ? 'justify-center' : 'justify-start'} items-center gap-3 overflow-x-auto snap-x snap-mandatory scroll-smooth w-[70%] mx-auto`}
+              ref={carouselRef}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+            >
+              {lessonPlans.length > 0 ? (
+                lessonPlans.map((lesson, index) => (
+                  <div key={index} className="min-w-[350px] max-w-[350px] max-h-[600px] flex-shrink-0 snap-center p-5 border rounded-lg shadow-md bg-white mx-3 overflow-hidden">
+                    <Link to={`/lesson/${index}`} state={{ lesson }}>
+                      <h2 className="text-xl font-semibold mb-3 text-blue-500 hover:underline">Lesson Plan {index + 1}</h2>
+                    </Link>
+                    <div className="max-h-[500px] overflow-y-auto">
+                      <pre className="text-sm text-gray-700 whitespace-pre-wrap">
+                        {lesson.content.lessonContent || "No content available"}
+                      </pre>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p>{error || "No lesson plans found."}</p>
+              )}
+            </div>
+            {/* Right button */}
+            {lessonPlans.length > 1 && (
+              <button onClick={() => scrollCarousel(1)} className="absolute right-0 p-2 bg-[#611171] text-white rounded-full hover:bg-[#4a0f5b] transition">
+                &gt;
+              </button>
+            )}
+          </div>
+        )}
+      </div>
     );
+    
+    
 };
 
 export default DisplayLessons;

@@ -69,49 +69,18 @@ function TeacherClassButton({ className = "Class Name", description = "Brief cla
         // navigate(route);
     };
 
-    const styles = {
-        button: {
-            backgroundColor: "transparent",
-            border: "none",
-            padding: 0,
-            cursor: "pointer",
-            textAlign: "left",
-            width: "100%",
-        },
-        card: {
-            backgroundColor: "#ffffff",
-            padding: "20px",
-            borderRadius: "10px",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            textAlign: "center",
-            width: "200px",
-            margin: "10px",
-        },
-        profileImage: {
-            width: "150px",
-            height: "150px",
-            borderRadius: "50%",
-            objectFit: "cover",
-        },
-        profileTitle: {
-            fontSize: "1.2em",
-            fontWeight: "bold",
-            margin: "10px 0",
-        },
-        profileDescription: {
-            fontSize: "0.9em",
-            color: "#666",
-        },
-    };
-
     return (
-        <button style={styles.button} onClick={handleClick}>
-            <div style={styles.card}>
-                <h2 style={styles.profileTitle}>{className}</h2>
-                <p style={styles.profileDescription}>{description}</p>
+        <button 
+            onClick={handleClick}
+            className="bg-transparent border-none p-0 cursor-pointer text-left w-full"
+        >
+            <div className="bg-white p-5 rounded-lg shadow-md text-center w-52 m-2">
+                <h2 className="text-xl font-bold mb-2">{className}</h2>
+                <p className="text-sm text-gray-600">{description}</p>
             </div>
         </button>
     );
 }
 
 export default TeacherClassButton;
+

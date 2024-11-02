@@ -3,8 +3,8 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import jsPDF from "jspdf";
 
 const LessonPlanGenerator = () => {
-  const [input1, setInput1] = useState("");
-  const [input2, setInput2] = useState("");
+  const [whatToTeachInput, setWhatToTeachInput] = useState("");
+  const [whoIsAttendingInput, setWhoIsAttendingInput] = useState("");
   const [result, setResult] = useState("");
   const [editableResult, setEditableResult] = useState("");
 
@@ -14,7 +14,7 @@ const LessonPlanGenerator = () => {
       const genAI = new GoogleGenerativeAI(apiKey);
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-      const prompt = `Create a lesson plan for teaching ${input1}. The lesson plan should be tailored for ${input2}. Include a clear objective, materials needed, a step-by-step outline, and suggestions for assessment. Make sure there are sections where the teacher can fill in specific details to customize the plan.`;
+      const prompt = `Create a lesson plan for teaching ${whatToTeachInput}. The lesson plan should be tailored for ${whoIsAttendingInput}. Include a clear objective, materials needed, a step-by-step outline, and suggestions for assessment. Make sure there are sections where the teacher can fill in specific details to customize the plan.`;
       console.log("Prompt:", prompt);
       const response = await model.generateContent(prompt);
 
@@ -44,8 +44,8 @@ const LessonPlanGenerator = () => {
     
     lines.forEach((line) => {
       if (cursorY + lineHeight > maxPageHeight) {
-        doc.addPage(); // Add a new page if the current page is full
-        cursorY = marginTop; // Reset cursor to top of new page
+        doc.addPage();
+        cursorY = marginTop;
       }
       doc.text(line, marginLeft, cursorY);
       cursorY += lineHeight;
@@ -55,35 +55,55 @@ const LessonPlanGenerator = () => {
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Input 1"
-        value={input1}
-        onChange={(e) => setInput1(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Input 2"
-        value={input2}
-        onChange={(e) => setInput2(e.target.value)}
-      />
-      <button onClick={handleGenerateContent}>Generate Content</button>
+    <div className="flex flex-col items-center p-8 bg-gray-100 min-h-screen">
+      <h1 className="text-2xl font-bold mb-8 text-gray-800">Lesson Plan Generator</h1>
+      
+      <div className="w-full max-w-md space-y-4">
+        <input
+          type="text"
+          placeholder="What to Teach"
+          value={whatToTeachInput}
+          onChange={(e) => setWhatToTeachInput(e.target.value)}
+          className="w-full px-4 py-2 text-gray-800 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        
+        <input
+          type="text"
+          placeholder="Who is Attending"
+          value={whoIsAttendingInput}
+          onChange={(e) => setWhoIsAttendingInput(e.target.value)}
+          className="w-full px-4 py-2 text-gray-800 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        
+        <button
+          onClick={handleGenerateContent}
+          className="w-full py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out"
+        >
+          Generate Content
+        </button>
+      </div>
+
       {result && (
-        <div>
-          <h2>Generated Lesson Plan (Editable)</h2>
+        <div className="w-full max-w-2xl mt-8">
+          <h2 className="text-xl font-semibold mb-4 text-gray-700">Generated Lesson Plan (Editable)</h2>
+          
           <textarea
             value={editableResult}
             onChange={handleEditChange}
             rows="10"
-            cols="50"
-            style={{ resize: "vertical", padding: "10px", fontSize: "16px" }}
+            className="w-full p-4 text-gray-800 border border-gray-300 rounded-lg shadow-sm resize-vertical focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <button onClick={handleExportPDF}>Export as PDF</button>
+          
+          <button
+            onClick={handleExportPDF}
+            className="w-full mt-4 py-2 px-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out"
+          >
+            Export as PDF
+          </button>
         </div>
       )}
     </div>
   );
 };
 
-export default LessonPlanGenerator;
+export default LessonPlanGenerator

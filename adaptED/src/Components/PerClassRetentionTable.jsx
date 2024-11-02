@@ -149,7 +149,7 @@ function PerClassRetentionTable() {
             </div>
 
             <div className="mt-auto mb-32 p-8 text-center bg-purple-300 rounded-lg mx-6">
-                <h3 className="text-3xl font-semibold text-purple-800">Today’s Friday</h3>
+                <h3 className="text-3xl font-semibold text-purple-800">Friday, November 1</h3>
             </div>
         </div>
     );

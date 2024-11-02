@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import LessonPlanGenerator from "./components/LessonPlanGenerator";
-import TeacherClassButton from "./components/TeacherClassButton";
 import TeacherProfile from "./components/TeacherProfile";
 import "./App.css";
 import { signInWithGoogle, auth } from "./components/config/firebase";
@@ -10,12 +8,9 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Retention from "./pages/Retention";
 import LessonPlanner from "./pages/LessonPlanner";
-import TeacherClassButton from "./components/TeacherClassButton";
 import LessonPlanGenerator from "./components/LessonPlanGenerator";
 import PerClassRetentionTable from "./components/PerClassRetentionTable";
 import TeacherClassButton from "./components/TeacherClassButton";
-
-
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

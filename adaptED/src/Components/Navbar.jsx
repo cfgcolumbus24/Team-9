@@ -1,19 +1,21 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+import "../pages/Navbar.css"; // Adjusted path to point to the pages folder
 
 const Navbar = () => {
-    return (
-        <nav className="bg-slate-500 p-4 sticky top-0 z-50">
-            <div className="container mx-auto flex justify-between">
-                <h1 className="text-white text-lg font-bold">adaptED</h1>
-                <div className="flex space-x-4">
-                    <Link to="/" className="text-white hover:text-gray-300">Home</Link>
-                    <Link to="/retention" className="text-white hover:text-gray-300">Retention Tracker</Link>
-                    <Link to="/lessonplanner" className="text-white hover:text-gray-300">Lesson Planner</Link>
-                </div>
-            </div>
-        </nav>
-    );
+  return (
+    <nav className="navbar">
+      <div className="navbar-container">
+        <h1 className="navbar-title">adaptED</h1>
+        <div>
+          <Link to="/" className="navbar-link">Home</Link>
+          <Link to="/retention" className="navbar-link">Retention Tracker</Link>
+          <Link to="/lessonplanner" className="navbar-link">Lesson Planner</Link>
+          <Link to="/profile" className="navbar-link">Profile</Link>
+        </div>
+      </div>
+    </nav>
+  );
 };
 
 export default Navbar;

@@ -7,11 +7,36 @@ import { signInWithGoogle, auth } from "./components/config/firebase"; // Ensure
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
+  const [teacherInfo, setTeacherInfo] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setIsAuthenticated(!!user);
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        setIsAuthenticated(!!user);
+        setUser({
+          name: user.displayName,
+          email: user.email,
+        });
+
+        try {
+          const teacherDocRef = doc(db, "USERS", user.email);
+          const teacherDoc = await getDoc(teacherDocRef);
+
+          if (teacherDoc.exists()) {
+            setTeacherInfo(teacherDoc.data());
+          } else {
+            console.log("No such document!");
+          }
+        } catch (error) {
+          console.error("Error fetching teacher data from Firestore:", error);
+        }
+      } else {
+        setIsAuthenticated(false);
+        setUser(null);
+        setTeacherInfo(null);
+      }
     });
+
     return () => unsubscribe();
   }, []);
 

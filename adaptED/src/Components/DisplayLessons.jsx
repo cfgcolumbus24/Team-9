@@ -64,7 +64,7 @@ const DisplayLessons = () => {
 
     return (
       <div className="p-4">
-        <h1 className="text-2xl font-bold mb-4 text-center">Lesson Plans</h1>
+        <h1 className="text-2xl font-bold text-center mb-6 text-[#ea057e]">Lesson Plans</h1>
         {loading ? (
           <p>Loading...</p>
         ) : (
@@ -87,7 +87,7 @@ const DisplayLessons = () => {
                   </div>
                 ))
               ) : (
-                <p>{error || "No lesson plans found."}</p>
+                <p className="text-[#ea057e]">{error || "No lesson plans found."}</p>
               )}
             </div>
             <button onClick={() => scrollCarousel(1)} className="absolute right-0 p-2 bg-[#611171] text-white rounded-full hover:bg-[#4a0f5b] transition">

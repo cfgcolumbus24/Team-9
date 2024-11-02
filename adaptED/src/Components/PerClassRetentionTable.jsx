@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 
+
 const students = ["Alice", "Bob", "Charlie", "Daisy", "Ethan"];
 const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
+
 function PerClassRetentionTable() {
     const today = new Date().toLocaleDateString("en-US", { weekday: 'long' });
+
 
     // Helper function to generate random default values
     const getRandomStatus = () => {
         const statuses = ["Understood", "Unsure", "Needs Help"];
         return statuses[Math.floor(Math.random() * statuses.length)];
     };
+
 
     // Initialize state with varied default values
     const [understanding, setUnderstanding] = useState(
@@ -23,9 +27,11 @@ function PerClassRetentionTable() {
         }, {})
     );
 
+
     const [isModalOpen, setModalOpen] = useState(false);
     const [currentStudent, setCurrentStudent] = useState("");
     const [currentDay, setCurrentDay] = useState("");
+
 
     const openModal = (student, day) => {
         setCurrentStudent(student);
@@ -33,7 +39,9 @@ function PerClassRetentionTable() {
         setModalOpen(true);
     };
 
+
     const closeModal = () => setModalOpen(false);
+
 
     const updateUnderstanding = (status) => {
         setUnderstanding(prev => ({
@@ -45,6 +53,7 @@ function PerClassRetentionTable() {
         }));
         closeModal();
     };
+
 
     return (
         <div className="p-6 bg-gray-100 min-h-screen">
@@ -83,6 +92,7 @@ function PerClassRetentionTable() {
                     </tbody>
                 </table>
             </div>
+
 
             {/* Modal */}
             {isModalOpen && (
@@ -123,5 +133,6 @@ function PerClassRetentionTable() {
         </div>
     );
 }
+
 
 export default PerClassRetentionTable;

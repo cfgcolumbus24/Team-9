@@ -2,16 +2,19 @@
 import React, { useState } from "react";
 import TeacherClassButton from "./TeacherClassButton";
 
+
 // Functional-based component creation
 function FieldPiece() {
     // State variables for name and class quantity
     const [name, setName] = useState("Guest");
     const [classQuantity, setClassQuantity] = useState(0);
 
+
     // Function to handle name change
     function handleNameChange(event) {
         setName(event.target.value);
     }
+
 
     // Function to handle quantity change
     function handleClassQuantityChange(event) {
@@ -20,6 +23,7 @@ function FieldPiece() {
             setClassQuantity(value);
         }
     }
+
 
     return (
         <div className="flex flex-col items-center p-6 bg-gray-50 min-h-screen">
@@ -33,6 +37,7 @@ function FieldPiece() {
             />
             <p className="mb-6 text-lg font-medium text-gray-700">Name: {name}</p>
 
+
             {/* Input for quantity of classes */}
             <input
                 type="number"
@@ -44,6 +49,7 @@ function FieldPiece() {
             />
             <p className="mb-6 text-lg font-medium text-gray-700">Quantity: {classQuantity}</p>
 
+
             {/* Render TeacherClassButton components based on the class quantity */}
             <div className="w-full max-w-md grid grid-cols-1 gap-4">
                 {Array.from({ length: classQuantity }, (_, index) => (
@@ -54,4 +60,7 @@ function FieldPiece() {
     );
 }
 
+
 export default FieldPiece;
+
+

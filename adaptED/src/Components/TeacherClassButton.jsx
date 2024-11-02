@@ -9,38 +9,6 @@ function TeacherClassButton({ className = "Class Name", description = "Brief cla
         // navigate(route);
     };
 
-<<<<<<< HEAD
-=======
-    const styles = {
-        button: {
-            backgroundColor: "transparent",
-            border: "none",
-            padding: 0,
-            cursor: "pointer",
-            textAlign: "left",
-            width: "100%",
-        },
-        card: {
-            backgroundColor: "#ffffff",
-            padding: "20px",
-            borderRadius: "10px",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            textAlign: "center",
-            width: "200px",
-            margin: "10px",
-        },
-        profileTitle: {
-            fontSize: "1.2em",
-            fontWeight: "bold",
-            margin: "10px 0",
-        },
-        profileDescription: {
-            fontSize: "0.9em",
-            color: "#666",
-        },
-    };
-
->>>>>>> fa4db219090792dd82acfdc6055acfcc73142309
     return (
         <button 
             onClick={handleClick}
@@ -55,4 +23,5 @@ function TeacherClassButton({ className = "Class Name", description = "Brief cla
 }
 
 export default TeacherClassButton;
+
 

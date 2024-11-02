@@ -1,20 +1,25 @@
 import { useState } from "react";
 
+
 // Functional based component for adding a class to the virtual document object model
 function AddClass() {
     const [count, setCount] = useState(0);
+
 
     const increment = () => {
         setCount((prevCount) => prevCount + 1);
     };
 
+
     const decrement = () => {
         setCount((prevCount) => prevCount - 1);
     };
 
+
     const reset = () => {
         setCount(0);
     };
+
 
     return (
         <div className="countContainer flex flex-col items-center justify-center h-screen bg-gray-100">
@@ -43,4 +48,7 @@ function AddClass() {
     );
 }
 
+
 export default AddClass;
+
+

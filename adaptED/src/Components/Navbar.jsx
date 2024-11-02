@@ -25,6 +25,7 @@ const Navbar = () => {
           <Link to="/profile" className="text-[#efeeea] hover:text-white font-semibold transition duration-200 hover:translate-y-[-2px]">
             Profile
           </Link>
+          <input placeholder="Search" className="outline-none"></input>
         </div>
       </div>
     </nav>

@@ -12,6 +12,7 @@ const Navbar = () => {
           <Link to="/retention" className="navbar-link">Retention Tracker</Link>
           <Link to="/lessonplanner" className="navbar-link">Lesson Planner</Link>
           <Link to="/profile" className="navbar-link">Profile</Link>
+            <div className="search-bar"><input type="search" placeholder="Search"></input></div>
         </div>
       </div>
     </nav>

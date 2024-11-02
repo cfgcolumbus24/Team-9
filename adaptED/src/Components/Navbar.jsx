@@ -13,16 +13,16 @@ const Navbar = () => {
           <h1 className="text-3xl font-bold text-[#efeeea]">adaptED</h1>
         </div>
         <div className="flex space-x-4">
-          <Link to="/" className="text-[#efeeea] hover:text-[#00abab] font-semibold transition duration-200">
+          <Link to="/" className="text-[#efeeea] hover:text-white font-semibold transition duration-200 hover:translate-y-[-2px]">
             Home
           </Link>
-          <Link to="/retention" className="text-[#efeeea] hover:text-[#00abab] font-semibold transition duration-200">
+          <Link to="/retention" className="text-[#efeeea] hover:text-white font-semibold transition duration-200 hover:translate-y-[-2px]">
             Retention Tracker
           </Link>
-          <Link to="/lessonplanner" className="text-[#efeeea] hover:text-[#00abab] font-semibold transition duration-200">
+          <Link to="/lessonplanner" className="text-[#efeeea] hover:text-white font-semibold transition duration-200 hover:translate-y-[-2px]">
             Lesson Planner
           </Link>
-          <Link to="/profile" className="text-[#efeeea] hover:text-[#00abab] font-semibold transition duration-200">
+          <Link to="/profile" className="text-[#efeeea] hover:text-white font-semibold transition duration-200 hover:translate-y-[-2px]">
             Profile
           </Link>
         </div>

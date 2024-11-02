@@ -96,11 +96,12 @@ const LessonPlanGenerator = () => {
           <h2 className="text-xl font-semibold mb-4 text-gray-700">Generated Lesson Plan (Editable)</h2>
          
           <textarea
-            value={editableResult}
-            onChange={handleEditChange}
-            rows="10"
-            className="w-full p-4 text-gray-800 border border-gray-300 rounded-lg shadow-sm resize-vertical focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+          value={editableResult}
+          onChange={handleEditChange}
+          rows="10"
+           className="w-full p-4 text-[#ea057e] border border-gray-300 rounded-lg shadow-sm resize-vertical focus:outline-none focus:ring-2 focus:ring-blue-500"
+/>
+
          
           <button
             onClick={handleExportPDF}

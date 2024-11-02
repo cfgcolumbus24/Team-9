@@ -11,7 +11,7 @@ const FindFriends = ({ suggestedFriends, addFriend }) => {
             <li key={index}>
               {user.name} - {user.email}{" "}
               <button
-                className="bg-[#611171] text-white font-medium text-sm px-1.5 py-1 rounded-md shadow-sm hover:bg-blue-600 transition duration-200"
+                className="bg-[#611171] text-white font-medium text-xs px-1 py-0.5 rounded-md shadow-sm hover:bg-blue-600 transition duration-200"
                 onClick={() => addFriend(user.email)}
               >
                 Add Friend

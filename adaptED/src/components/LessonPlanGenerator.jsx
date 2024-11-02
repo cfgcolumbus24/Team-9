@@ -19,7 +19,6 @@ const LessonPlanGenerator = () => {
       const genAI = new GoogleGenerativeAI(apiKey);
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-<<<<<<< HEAD
 
       const prompt = `
       Create a structured lesson plan for teaching **[input1: specific topic, such as 'basic algebra' or 'the water cycle']** to **[input2: target audience, such as '7th-grade students' or 'beginner ESL adults']**. Begin by specifying the subject and grade level, as well as the topic and estimated time for the lesson. Next, list 2-3 specific learning objectives that describe what students should be able to understand or accomplish by the end of the lesson. Provide a list of essential materials needed for the lesson, noting any optional materials that could further enhance understanding.
@@ -28,8 +27,6 @@ const LessonPlanGenerator = () => {
       
       Add a section on Differentiation, detailing strategies for supporting students at different ability levels, such as simplifying problems for those who need extra help or adding challenges for advanced students. Include Adaptations that consider technology or other adjustments, like online games or simulations, to suit different learning styles. Finally, describe the methods you will use to assess students' understanding formally and informally, such as worksheet collection or real-time observation. Keep your explanations and examples clear to ensure students are engaged, understand the material, and can apply what they've learned.
       `;
-=======
->>>>>>> firebase
       const response = await model.generateContent(prompt);
 
       const generatedText = response.response.text();

@@ -3,7 +3,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import jsPDF from "jspdf";
 import { db } from "./config/firebase";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
-import loadingGif from "../assets/loading.gif"
+import loadingGif from "../assets/loading.gif";
 
 const LessonPlanGenerator = () => {
   const [whatToTeachInput, setWhatToTeachInput] = useState("");
@@ -13,11 +13,19 @@ const LessonPlanGenerator = () => {
   const [editableResult, setEditableResult] = useState("");
   const [saveStatus, setSaveStatus] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const userEmail = localStorage.getItem("email");
 
   const handleGenerateContent = async () => {
+    if (!whatToTeachInput || !whoIsAttendingInput || !languageInput) {
+      setError("Please fill in all fields: 'What to Teach', 'Who is Attending', and 'Language'.");
+      return;
+    }
+
+    setError("");
     setLoading(true);
+
     try {
       const apiKey = import.meta.env.VITE_GEMINI_KEY;
       const genAI = new GoogleGenerativeAI(apiKey);
@@ -135,7 +143,12 @@ const LessonPlanGenerator = () => {
           Generate Lesson Plan
         </button>
 
-       
+        {error && (
+          <div className="mt-4 p-4 bg-pink-200 text-pink-800 rounded-lg">
+            {error}
+          </div>
+        )}
+
         {loading && (
           <div className="flex justify-center mt-4">
             <img src={loadingGif} alt="Loading..." className="h-20" />

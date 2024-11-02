@@ -17,7 +17,6 @@ const TeacherProfile = () => {
           if (teacherDoc.exists()) {
             const data = teacherDoc.data();
 
-            // Format the signUpDate if it exists
             if (data.signUpDate) {
               const signUpDate = new Date(data.signUpDate);
               data.signUpDate = signUpDate.toLocaleDateString("en-US", {

@@ -14,21 +14,14 @@ Follow these instructions to set up and run the project on your local machine fo
 
 Clone the Repository:
 
-` git clone https://github.com/your-username/lesson-plan-generator.git`
-
-`cd lesson-plan-generator`
+` git clone https://github.com/your-username/cfgcolumbus24/Team-9.git`
+`cd adaptED`
 
 ## Install Dependencies:
 
 `npm install`
-
-## Install Additional Packages:
-
-Google Generative AI:
-`npm install @google/generative-ai`
-
-jsPDF:
-`npm install jspdf`
+`npm install firebase`
+`npm install dotenv`
 
 ## Environment Variables
 
@@ -38,6 +31,7 @@ Create a .env file in the root directory of your project and add the following:
 'VITE_FIREBASE_KEY=your-firebase-api-key'
 
 Replace your-google-api-key with your actual Google Generative AI API key.
+Replace your-firebase-api-key with your actual Firebase API key.
 
 ## Running the Project
 

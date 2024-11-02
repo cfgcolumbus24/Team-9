@@ -35,6 +35,7 @@ jsPDF:
 Create a .env file in the root directory of your project and add the following:
 
 `VITE_GEMINI_KEY=your-google-api-key`
+'VITE_FIREBASE_KEY=your-firebase-api-key'
 
 Replace your-google-api-key with your actual Google Generative AI API key.
 

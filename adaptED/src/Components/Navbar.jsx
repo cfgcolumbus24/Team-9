@@ -36,7 +36,6 @@ const Navbar = () => {
           >
             Profile
           </Link>
-          <input placeholder="Search" className="outline-none"></input>
         </div>
       </div>
     </nav>

@@ -19,8 +19,6 @@ const LessonPlanGenerator = () => {
       const genAI = new GoogleGenerativeAI(apiKey);
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-      const prompt = `Create a lesson plan for teaching ${whatToTeachInput}. The lesson plan should be tailored for ${whoIsAttendingInput}. Include a clear objective, materials needed, a step-by-step outline, and suggestions for assessment. Make sure there are sections where the teacher can fill in specific details to customize the plan.`;
-      console.log("Prompt:", prompt);
       const response = await model.generateContent(prompt);
 
       const generatedText = response.response.text();

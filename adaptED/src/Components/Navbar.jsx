@@ -9,7 +9,7 @@ const Navbar = () => {
     <nav className="bg-[#611171] shadow-lg">
       <div className="container mx-auto flex justify-between items-center py-4 px-4 lg:px-6">
         <div className="flex items-center space-x-3">
-          <img src={logo} alt="Logo" className="h-14 w-14 rounded-full" />
+          <Link to="/"><img src={logo} alt="Logo" className="h-14 w-14 rounded-full" /></Link>
           <h1 className="text-3xl font-bold text-[#efeeea]">adaptED</h1>
         </div>
         <div className="flex space-x-4">

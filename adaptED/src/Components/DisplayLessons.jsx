@@ -1,37 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from './config/firebase';
+import { Link } from 'react-router-dom';
 
 const DisplayLessons = () => {
     const [lessonPlans, setLessonPlans] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const carouselRef = useRef(null);
+    const touchStartX = useRef(0);
 
-    // Retrieve the signed-in user's email from localStorage (set during sign-in)
     const userEmail = localStorage.getItem("email");
 
     useEffect(() => {
         const fetchLessonPlans = async () => {
             if (!userEmail) {
                 console.error("No user is signed in");
+                setError("No user is signed in");
                 setLoading(false);
                 return;
             }
 
             try {
-                // Reference to the specific user document
                 const userDocRef = doc(db, "users", userEmail);
                 const userDoc = await getDoc(userDocRef);
 
                 if (userDoc.exists()) {
                     const data = userDoc.data();
-                    setLessonPlans(data.lesson_plans || []); // Set lesson_plans or an empty array if not found
-                    console.log("Fetched lesson plans:", data.lesson_plans);
+                    setLessonPlans(data.lesson_plans || []);
                 } else {
-                    console.log("No such document for the user");
+                    setError("No lesson plans found for this user.");
                     setLessonPlans([]);
                 }
             } catch (error) {
                 console.error("Error fetching lesson plans:", error);
+                setError("An error occurred while fetching lesson plans.");
             } finally {
                 setLoading(false);
             }
@@ -39,6 +42,25 @@ const DisplayLessons = () => {
 
         fetchLessonPlans();
     }, [userEmail]);
+
+    const handleTouchStart = (e) => {
+        touchStartX.current = e.touches[0].clientX;
+    };
+
+    const handleTouchEnd = (e) => {
+        const touchEndX = e.changedTouches[0].clientX;
+        const distance = touchStartX.current - touchEndX;
+
+        if (distance > 50) {
+            carouselRef.current.scrollBy({ left: 350, behavior: "smooth" });
+        } else if (distance < -50) {
+            carouselRef.current.scrollBy({ left: -350, behavior: "smooth" });
+        }
+    };
+
+    const scrollCarousel = (direction) => {
+        carouselRef.current.scrollBy({ left: direction * 350, behavior: "smooth" });
+    };
 
     return (
       <div className="p-4">
@@ -86,6 +108,7 @@ const DisplayLessons = () => {
         )}
       </div>
     );
+    
     
     
 };

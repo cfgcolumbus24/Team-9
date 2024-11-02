@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import TeacherProfile from "./components/TeacherProfile";
-import "./App.css";
-import { signInWithGoogle, auth } from "./components/config/firebase";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
+import TeacherProfile from "./components/TeacherProfile";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Retention from "./pages/Retention";
 import LessonPlanner from "./pages/LessonPlanner";
+import DisplayLessons from "./Components/DisplayLessons"; // Assuming DisplayLessons is in the pages folder
+import LessonDetail from "./pages/LessonDetail"; // Assuming LessonDetail is in the pages folder
+import { signInWithGoogle, auth } from "./Components/config/firebase";
+import "./App.css";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -46,6 +47,8 @@ function App() {
           <Route path="/retention" element={<Retention />} />
           <Route path="/lessonplanner" element={<LessonPlanner />} />
           <Route path="/profile" element={<TeacherProfile />} />
+          <Route path="/lessons" element={<DisplayLessons />} />
+          <Route path="/lesson/:lessonId" element={<LessonDetail />} /> {/* Route for lesson detail */}
         </Routes>
       </Router>
     </div>

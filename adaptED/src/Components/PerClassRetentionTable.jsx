@@ -58,6 +58,20 @@ function PerClassRetentionTable() {
         }
     };
 
+    const saveStatuses = () => {
+        const statusesArray = students.map(student => ({
+            name: student,
+            statuses: daysOfWeek.map(day => ({
+                day,
+                status: understanding[student][day]
+            }))
+        }));
+        setSavedStatuses(statusesArray);
+
+        // Navigate to the LessonPlanner page
+        navigate('/LessonPlanner');
+    };
+
     return (
         <div className="flex flex-col min-h-screen bg-gray-100">
             <div className="p-6">

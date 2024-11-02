@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import jsPDF from "jspdf";
-
+import { db } from "./config/firebase";
+import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 
 const LessonPlanGenerator = () => {
   const [whatToTeachInput, setWhatToTeachInput] = useState("");
   const [whoIsAttendingInput, setWhoIsAttendingInput] = useState("");
   const [result, setResult] = useState("");
   const [editableResult, setEditableResult] = useState("");
+  const [saveStatus, setSaveStatus] = useState(null); // State to track save status
 
+  // Retrieve the user's email from localStorage (set during Google Sign-In)
+  const userEmail = localStorage.getItem("email");
 
   const handleGenerateContent = async () => {
     try {
@@ -17,11 +21,16 @@ const LessonPlanGenerator = () => {
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 
-      const prompt = `Create a lesson plan for teaching ${whatToTeachInput}. The lesson plan should be tailored for ${whoIsAttendingInput}. Include a clear objective, materials needed, a step-by-step outline, and suggestions for assessment. Make sure there are sections where the teacher can fill in specific details to customize the plan.`;
-      console.log("Prompt:", prompt);
+      
+      const prompt = `
+      Create a structured lesson plan for teaching ${whatToTeachInput} to ${whoIsAttendingInput}. Begin by specifying the subject and grade level, as well as the topic and estimated time for the lesson. Next, list 2-3 specific learning objectives that describe what students should be able to understand or accomplish by the end of the lesson. Provide a list of essential materials needed for the lesson, noting any optional materials that could further enhance understanding.
+      
+      In the lesson procedure, break down the plan into five sections. Start with an Introduction (5 minutes) that uses a relatable, real-world scenario to introduce the main concept. In the Core Concepts section (10 minutes), introduce key terms or principles through clear explanations and examples. For Guided Practice (15 minutes), describe a collaborative activity where students work in pairs or groups to practice the concept with sample problems. Include Independent Practice (10 minutes) with individual exercises to reinforce the lesson. Finish with a brief Assessment (5 minutes) to gauge students' understanding, such as a quick worksheet check or observing their explanations.
+      
+      Add a section on Differentiation, detailing strategies for supporting students at different ability levels, such as simplifying problems for those who need extra help or adding challenges for advanced students. Include Adaptations that consider technology or other adjustments, like online games or simulations, to suit different learning styles. Finally, describe the methods you will use to assess students' understanding formally and informally, such as worksheet collection or real-time observation. Keep your explanations and examples clear to ensure students are engaged, understand the material, and can apply what they've learned.
+    `;
+    
       const response = await model.generateContent(prompt);
-
-
       const generatedText = response.response.text();
       setResult(generatedText);
       setEditableResult(generatedText);
@@ -31,11 +40,9 @@ const LessonPlanGenerator = () => {
     }
   };
 
-
   const handleEditChange = (e) => {
     setEditableResult(e.target.value);
   };
-
 
   const handleExportPDF = () => {
     const doc = new jsPDF();
@@ -44,10 +51,10 @@ const LessonPlanGenerator = () => {
     const marginTop = 10;
     const maxLineWidth = doc.internal.pageSize.width - marginLeft * 2;
     const maxPageHeight = doc.internal.pageSize.height - marginTop * 2;
-   
+
     const lines = doc.splitTextToSize(editableResult, maxLineWidth);
     let cursorY = marginTop;
-   
+
     lines.forEach((line) => {
       if (cursorY + lineHeight > maxPageHeight) {
         doc.addPage();
@@ -56,10 +63,38 @@ const LessonPlanGenerator = () => {
       doc.text(line, marginLeft, cursorY);
       cursorY += lineHeight;
     });
-   
+
     doc.save("Lesson_Plan.pdf");
   };
 
+  const handleSaveAsJSON = async () => {
+    if (!userEmail) {
+      console.error("User is not authenticated");
+      setSaveStatus("error"); // Set status to error if user is not authenticated
+      return;
+    }
+
+    try {
+      const lessonPlanEntry = {
+        content: {
+          whatToTeach: whatToTeachInput,
+          whoIsAttending: whoIsAttendingInput,
+          lessonContent: editableResult,
+          timestamp: new Date().toISOString(),
+        }
+      };
+
+      const userRef = doc(db, "users", userEmail);
+      await updateDoc(userRef, {
+        lesson_plans: arrayUnion(lessonPlanEntry)
+      });
+
+      setSaveStatus("success"); // Set status to success on successful save
+    } catch (error) {
+      console.error("Error saving lesson plan:", error);
+      setSaveStatus("error"); // Set status to error on failure
+    }
+  };
 
   return (
     <div className="flex flex-col items-center p-8 bg-gray-100 min-h-screen">
@@ -86,10 +121,9 @@ const LessonPlanGenerator = () => {
           onClick={handleGenerateContent}
           className="w-full py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out"
         >
-          Generate Content
+          Generate Lesson Plan
         </button>
       </div>
-
 
       {result && (
         <div className="w-full max-w-2xl mt-8">
@@ -109,11 +143,25 @@ const LessonPlanGenerator = () => {
           >
             Export as PDF
           </button>
+
+          <button
+            onClick={handleSaveAsJSON}
+            className="w-full mt-4 py-2 px-4 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out"
+          >
+            Save to Firestore as JSON
+          </button>
+
+          {/* Success or Error Message */}
+          {saveStatus === "success" && (
+            <p className="text-green-600 font-semibold mt-4">Lesson plan saved successfully!</p>
+          )}
+          {saveStatus === "error" && (
+            <p className="text-red-600 font-semibold mt-4">Failed to save lesson plan. Please try again.</p>
+          )}
         </div>
       )}
     </div>
   );
 };
 
-
-export default LessonPlanGenerator
+export default LessonPlanGenerator;

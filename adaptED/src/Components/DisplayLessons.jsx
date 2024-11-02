@@ -1,34 +1,44 @@
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { db } from './config/firebase';
 
 const DisplayLessons = () => {
     const [lessonPlans, setLessonPlans] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    // Retrieve the signed-in user's email from localStorage (set during sign-in)
+    const userEmail = localStorage.getItem("email");
+
     useEffect(() => {
         const fetchLessonPlans = async () => {
-            try {
-                const querySnapshot = await getDocs(collection(db, "users"));
-                const lessons = [];
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    console.log("Document data:", data);
-                    if (data.lesson_plans) {
-                        lessons.push(...data.lesson_plans);
-                    }
-                });
-                setLessonPlans(lessons);
+            if (!userEmail) {
+                console.error("No user is signed in");
                 setLoading(false);
-                console.log("Lesson Plans:", lessons);
+                return;
+            }
+
+            try {
+                // Reference to the specific user document
+                const userDocRef = doc(db, "users", userEmail);
+                const userDoc = await getDoc(userDocRef);
+
+                if (userDoc.exists()) {
+                    const data = userDoc.data();
+                    setLessonPlans(data.lesson_plans || []); // Set lesson_plans or an empty array if not found
+                    console.log("Fetched lesson plans:", data.lesson_plans);
+                } else {
+                    console.log("No such document for the user");
+                    setLessonPlans([]);
+                }
             } catch (error) {
                 console.error("Error fetching lesson plans:", error);
+            } finally {
                 setLoading(false);
             }
         };
 
         fetchLessonPlans();
-    }, []);
+    }, [userEmail]);
 
     return (
         <div className="p-4">

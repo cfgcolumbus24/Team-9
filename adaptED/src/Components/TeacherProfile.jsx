@@ -33,17 +33,22 @@ const TeacherProfile = () => {
   }
 
   return (
-    <div className="teacher-profile">
-      <h2>Your Profile</h2>
-      <p>
-        <strong>Name:</strong> {teacherInfo.name}
-      </p>
-      <p>
-        <strong>Email:</strong> {teacherInfo.email}
-      </p>
-      <p>
-        <strong>Sign Up Date:</strong> {teacherInfo.signUpDate}
-      </p>
+    <div className="teacher-profile bg-white text-[#222222] p-8 rounded-xl shadow-lg max-w-lg mx-auto mt-12">
+      <h2 className="text-3xl font-extrabold mb-6 text-[#ea057e] text-center">Your Profile</h2>
+      <div className="space-y-4">
+        <p className="flex justify-between items-center border-b border-[#8f8e8c] pb-2">
+          <span className="font-bold text-[#611171]">Name:</span>
+          <span className="text-lg">{teacherInfo.name}</span>
+        </p>
+        <p className="flex justify-between items-center border-b border-[#8f8e8c] pb-2">
+          <span className="font-bold text-[#611171]">Email:</span>
+          <span className="text-lg">{teacherInfo.email}</span>
+        </p>
+        <p className="flex justify-between items-center">
+          <span className="font-bold text-[#611171]">Sign Up Date:</span>
+          <span className="text-lg">{teacherInfo.signUpDate}</span>
+        </p>
+      </div>
     </div>
   );
 };

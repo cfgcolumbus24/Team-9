@@ -24,3 +24,4 @@ export const signInWithGoogle = () => {
       console.log(error);
     });
 };
+export { auth }; // Add this line to export auth

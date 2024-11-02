@@ -11,7 +11,12 @@ const FindFriends = ({ suggestedFriends, addFriend }) => {
           suggestedFriends.slice(1).map((user, index) => (
             <li key={index}>
               {user.name} - {user.email}{" "}
-              <AddFriendButton></AddFriendButton>
+              <button
+                className="bg-[#611171] text-white font-medium text-sm px-1.5 py-1 rounded-md shadow-sm hover:bg-blue-600 transition duration-200"
+                onClick={() => addFriend(user.email)}
+              >
+                Add Friend
+              </button>
             </li>
           ))
         ) : (

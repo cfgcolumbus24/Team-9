@@ -94,7 +94,8 @@ const TeacherProfile = () => {
   });
 
   return (
-    <div className="teacher-profile bg-white text-[#222222] p-8 rounded-xl shadow-lg max-w-lg mx-auto mt-12">
+    <div className="teacher-profile bg-white text-[#222222] p-8 rounded-xl shadow-lg mx-auto mt-12"
+      style={{ maxWidth: "37rem" }}>
       <img
         src="https://t4.ftcdn.net/jpg/04/83/90/95/360_F_483909569_OI4LKNeFgHwvvVju60fejLd9gj43dIcd.jpg"
         className="w-40 h-40 mx-auto mb-4"

@@ -33,12 +33,11 @@ const TeacherProfile = () => {
             .filter((user) => user.email !== currentUser.email);
 
           if (teacherDoc.exists()) {
-            console.log("Teacher data:", teacherDoc.data());
-            setTeacherInfo(teacherDoc.data());
+            const teacherData = teacherDoc.data();
+            setTeacherInfo(teacherData);
 
-            if (data.friends) {
-              console.log("Friends:", data.friends);
-              setFriends(data.friends);
+            if (teacherData.friends) {
+              setFriends(teacherData.friends);
             }
 
             setSuggestedFriends(allUsers);

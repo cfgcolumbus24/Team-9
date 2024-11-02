@@ -7,8 +7,8 @@ const FindFriends = ({ suggestedFriends, addFriend }) => {
         Find New Friends
       </h3>
       <ul className="list-disc list-inside">
-        {suggestedFriends.length > 0 ? (
-          suggestedFriends.map((user, index) => (
+        {suggestedFriends.length > 1 ? (
+          suggestedFriends.slice(1).map((user, index) => (
             <li key={index}>
               {user.name} - {user.email}{" "}
               <button
@@ -20,7 +20,7 @@ const FindFriends = ({ suggestedFriends, addFriend }) => {
             </li>
           ))
         ) : (
-          <p>No suggestions available.</p>
+          <li>No friends to suggest</li>
         )}
       </ul>
     </div>

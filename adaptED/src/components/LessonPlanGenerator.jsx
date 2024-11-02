@@ -3,18 +3,21 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import jsPDF from "jspdf";
 import { db } from "./config/firebase";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import loadingGif from "../assets/loading.gif"
 
 const LessonPlanGenerator = () => {
   const [whatToTeachInput, setWhatToTeachInput] = useState("");
   const [whoIsAttendingInput, setWhoIsAttendingInput] = useState("");
-  const [languageInput, setLanguageInput] = useState(""); // New state for language
+  const [languageInput, setLanguageInput] = useState("");
   const [result, setResult] = useState("");
   const [editableResult, setEditableResult] = useState("");
   const [saveStatus, setSaveStatus] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const userEmail = localStorage.getItem("email");
 
   const handleGenerateContent = async () => {
+    setLoading(true);
     try {
       const apiKey = import.meta.env.VITE_GEMINI_KEY;
       const genAI = new GoogleGenerativeAI(apiKey);
@@ -36,6 +39,7 @@ const LessonPlanGenerator = () => {
       console.error("Error generating content:", error);
       setResult("Error generating content");
     }
+    setLoading(false);
   };
 
   const handleEditChange = (e) => {
@@ -126,10 +130,17 @@ const LessonPlanGenerator = () => {
 
         <button
           onClick={handleGenerateContent}
-          className="w-full py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out"
+          className="w-full py-2 px-4 bg-green-400 hover:bg-green-500 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out"
         >
           Generate Lesson Plan
         </button>
+
+       
+        {loading && (
+          <div className="flex justify-center mt-4">
+            <img src={loadingGif} alt="Loading..." className="h-20" />
+          </div>
+        )}
       </div>
 
       {result && (

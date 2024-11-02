@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const students = ["Alice", "Bob", "Charlie", "Daisy", "Ethan"];
 const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
@@ -6,13 +7,11 @@ const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 function PerClassRetentionTable() {
     const today = new Date().toLocaleDateString("en-US", { weekday: 'long' });
 
-    // Helper function to generate random default values
     const getRandomStatus = (day) => {
         const statuses = ["Understood", "Unsure", "Needs Help"];
         return day === "Friday" ? "?" : statuses[Math.floor(Math.random() * statuses.length)];
     };
 
-    // Initialize state with varied default values
     const [understanding, setUnderstanding] = useState(
         students.reduce((acc, student) => {
             acc[student] = {};
@@ -46,17 +45,16 @@ function PerClassRetentionTable() {
         closeModal();
     };
 
-    // Function to determine background color based on the status
     const getStatusColor = (status) => {
         switch (status) {
             case "Understood":
-                return "bg-green-200";  // Light green background for "Understood"
+                return "bg-green-200";
             case "Unsure":
-                return "bg-yellow-200";  // Light yellow background for "Unsure"
+                return "bg-yellow-200";
             case "Needs Help":
-                return "bg-red-200";  // Light red background for "Needs Help"
+                return "bg-red-200";
             default:
-                return "bg-white";  // Default white background
+                return "bg-white";
         }
     };
 
@@ -101,7 +99,6 @@ function PerClassRetentionTable() {
                 </table>
             </div>
 
-            {/* Modal */}
             {isModalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                     <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
@@ -137,6 +134,12 @@ function PerClassRetentionTable() {
                     </div>
                 </div>
             )}
+
+            <div className="text-center mt-8">
+                <Link to="/LessonPlanner" className="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition">
+                    Save and Generate Lesson Plan
+                </Link>
+            </div>
         </div>
     );
 }

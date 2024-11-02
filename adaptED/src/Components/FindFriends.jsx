@@ -1,5 +1,4 @@
 import React from "react";
-import AddFriendButton from "./AddFriendButton";
 const FindFriends = ({ suggestedFriends, addFriend }) => {
   return (
     <div className="find-friends">

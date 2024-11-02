@@ -64,11 +64,11 @@ const DisplayLessons = () => {
 
     return (
       <div className="p-4">
-        <h1 className="text-2xl font-bold mb-4 text-center">Lesson Plans</h1>
+        <h1 className="text-2xl font-bold text-center mb-6 text-[#ea057e]">Lesson Plans</h1>
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <div className="relative flex justify-center items-center">
+          <div className="relative flex justify-center items-center w-full">
             {/* Left button */}
             {lessonPlans.length > 1 && (
               <button onClick={() => scrollCarousel(-1)} className="absolute left-0 p-2 bg-[#611171] text-white rounded-full hover:bg-[#4a0f5b] transition">
@@ -76,7 +76,7 @@ const DisplayLessons = () => {
               </button>
             )}
             <div
-              className={`carousel flex ${lessonPlans.length === 1 ? 'justify-center' : 'justify-start'} items-center gap-3 overflow-x-auto snap-x snap-mandatory scroll-smooth w-[70%] mx-auto`}
+              className={`carousel flex ${lessonPlans.length === 1 ? 'justify-center' : 'justify-start'} items-center gap-3 overflow-x-auto snap-x snap-mandatory scroll-smooth w-[90%] max-w-[1200px] mx-auto`}
               ref={carouselRef}
               onTouchStart={handleTouchStart}
               onTouchEnd={handleTouchEnd}
@@ -95,7 +95,7 @@ const DisplayLessons = () => {
                   </div>
                 ))
               ) : (
-                <p>{error || "No lesson plans found."}</p>
+                <p className="text-[#ea057e]">{error || "No lesson plans found."}</p>
               )}
             </div>
             {/* Right button */}
@@ -108,9 +108,6 @@ const DisplayLessons = () => {
         )}
       </div>
     );
-    
-    
-    
 };
 
 export default DisplayLessons;

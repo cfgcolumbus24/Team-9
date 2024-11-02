@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const students = ["Alice", "Bob", "Charlie", "Daisy", "Ethan"];
-const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday (Today)"];
 
 function PerClassRetentionTable() {
     const today = new Date().toLocaleDateString("en-US", { weekday: 'long' });
 
     const getRandomStatus = (day) => {
         const statuses = ["Understood", "Unsure", "Needs Help"];
-        return day === "Friday" ? "?" : statuses[Math.floor(Math.random() * statuses.length)];
+        return day === "Friday (Today)" ? "?" : statuses[Math.floor(Math.random() * statuses.length)];
     };
 
     const [understanding, setUnderstanding] = useState(
@@ -88,7 +88,7 @@ function PerClassRetentionTable() {
                                         >
                                             <div className="flex items-center justify-between">
                                                 <span>{understanding[student][day]}</span>
-                                                {day === "Friday" && (
+                                                {day === "Friday (Today)" && (
                                                     <button
                                                         onClick={() => openModal(student, day)}
                                                         className="ml-2 px-2 py-1 text-xs font-semibold text-blue-600 bg-blue-100 rounded-lg hover:bg-blue-200 transition"

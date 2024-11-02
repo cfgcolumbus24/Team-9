@@ -9,9 +9,7 @@ function App() {
   
   return (
     <div>
-      <FieldPiece></FieldPiece>
       <TeacherClassButton></TeacherClassButton>
-      <h1>adaptED</h1>
       <PerClassRetentionTable></PerClassRetentionTable>
       <LessonPlanGenerator></LessonPlanGenerator>
     </div>

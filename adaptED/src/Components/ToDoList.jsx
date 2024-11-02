@@ -66,7 +66,7 @@ function ToDoList() {
         />
         <button
           onClick={addTask}
-          className="addButton bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-lg transition duration-200"
+          className="addButton bg-[#611171] hover:bg-[#520262] text-white font-semibold px-4 py-2 rounded-lg transition duration-200"
         >
           Add
         </button>

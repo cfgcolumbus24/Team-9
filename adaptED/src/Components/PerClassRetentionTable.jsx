@@ -1,31 +1,37 @@
 import React, { useState } from 'react';
 
+
 const students = ["Alice", "Bob", "Charlie", "Daisy", "Ethan"];
 const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+
 
 function PerClassRetentionTable() {
     const today = new Date().toLocaleDateString("en-US", { weekday: 'long' });
 
+
     // Helper function to generate random default values
-    const getRandomStatus = (day) => {
+    const getRandomStatus = () => {
         const statuses = ["Understood", "Unsure", "Needs Help"];
-        return day === "Friday" ? "?" : statuses[Math.floor(Math.random() * statuses.length)];
+        return statuses[Math.floor(Math.random() * statuses.length)];
     };
+
 
     // Initialize state with varied default values
     const [understanding, setUnderstanding] = useState(
         students.reduce((acc, student) => {
             acc[student] = {};
             daysOfWeek.forEach(day => {
-                acc[student][day] = getRandomStatus(day);
+                acc[student][day] = getRandomStatus();
             });
             return acc;
         }, {})
     );
 
+
     const [isModalOpen, setModalOpen] = useState(false);
     const [currentStudent, setCurrentStudent] = useState("");
     const [currentDay, setCurrentDay] = useState("");
+
 
     const openModal = (student, day) => {
         setCurrentStudent(student);
@@ -33,7 +39,9 @@ function PerClassRetentionTable() {
         setModalOpen(true);
     };
 
+
     const closeModal = () => setModalOpen(false);
+
 
     const updateUnderstanding = (status) => {
         setUnderstanding(prev => ({
@@ -46,19 +54,6 @@ function PerClassRetentionTable() {
         closeModal();
     };
 
-    // Function to determine background color based on the status
-    const getStatusColor = (status) => {
-        switch (status) {
-            case "Understood":
-                return "bg-green-200";
-            case "Unsure":
-                return "bg-yellow-200";
-            case "Needs Help":
-                return "bg-red-200";
-            default:
-                return "bg-white";
-        }
-    };
 
     return (
         <div className="p-6 bg-gray-100 min-h-screen">
@@ -78,13 +73,10 @@ function PerClassRetentionTable() {
                             <tr key={student} className="border-t border-gray-200">
                                 <td className="px-4 py-2 font-medium text-gray-800">{student}</td>
                                 {daysOfWeek.map(day => (
-                                    <td
-                                        key={day}
-                                        className={`px-4 py-2 ${day !== "Friday" ? "bg-gray-300 text-gray-500" : today === "Friday" ? "border border-blue-500" : ""} ${getStatusColor(understanding[student][day])}`}
-                                    >
+                                    <td key={day} className="px-4 py-2">
                                         <div className="flex items-center justify-between">
                                             <span className="text-gray-700">{understanding[student][day]}</span>
-                                            {day === "Friday" && today === "Friday" && (
+                                            {day === today && (
                                                 <button
                                                     onClick={() => openModal(student, day)}
                                                     className="ml-2 px-2 py-1 text-xs font-semibold text-blue-600 bg-blue-100 rounded-lg hover:bg-blue-200 transition"
@@ -100,6 +92,7 @@ function PerClassRetentionTable() {
                     </tbody>
                 </table>
             </div>
+
 
             {/* Modal */}
             {isModalOpen && (
@@ -140,5 +133,6 @@ function PerClassRetentionTable() {
         </div>
     );
 }
+
 
 export default PerClassRetentionTable;

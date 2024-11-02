@@ -65,10 +65,6 @@ function App() {
           <Route path="/profile" element={<TeacherProfile />}></Route>
         </Routes>
       </Router>
-
-      <TeacherClassButton></TeacherClassButton>
-      <PerClassRetentionTable></PerClassRetentionTable>
-      <LessonPlanGenerator></LessonPlanGenerator>
     </div>
   );
 }

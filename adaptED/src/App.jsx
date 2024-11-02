@@ -5,6 +5,10 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Retention from "./pages/Retention";
 import LessonPlanner from "./pages/LessonPlanner";
+import TeacherClassButton from "./Components/TeacherClassButton";
+import LessonPlanGenerator from "./components/LessonPlanGenerator";
+import PerClassRetentionTable from "./Components/PerClassRetentionTable";
+
 
 function App() {
   return (

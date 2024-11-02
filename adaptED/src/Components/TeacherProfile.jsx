@@ -55,16 +55,26 @@ const TeacherProfile = () => {
 
   const addFriend = async (friendEmail) => {
     const user = auth.currentUser;
-
+  
     if (user) {
       try {
         const userRef = doc(db, "users", user.email);
+  
+        // Update the Firestore document to add the friend
         await updateDoc(userRef, {
           friends: arrayUnion(friendEmail),
         });
+  
         console.log("Friend added successfully!");
-
-        setFriends((prevFriends) => [...prevFriends, friendEmail]);
+  
+        // Update the local state to add the friend to the friends list
+        setFriends((prevFriends) => {
+          if (prevFriends.includes(friendEmail)) {
+            console.log("Friend already added!");
+            return prevFriends;
+          }
+          return [...prevFriends, friendEmail];
+        });
       } catch (error) {
         console.error("Error adding friend:", error);
       }

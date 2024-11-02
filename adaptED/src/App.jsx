@@ -5,9 +5,11 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Retention from "./pages/Retention";
 import LessonPlanner from "./pages/LessonPlanner";
-import TeacherClassButton from "./Components/TeacherClassButton";
+import TeacherClassButton from "./components/TeacherClassButton";
 import LessonPlanGenerator from "./components/LessonPlanGenerator";
-import PerClassRetentionTable from "./Components/PerClassRetentionTable";
+import PerClassRetentionTable from "./components/PerClassRetentionTable";
+import TeacherClassButton from "./components/TeacherClassButton";
+
 
 
 function App() {

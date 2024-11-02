@@ -4,6 +4,12 @@ import TeacherClassButton from "./components/TeacherClassButton";
 import TeacherProfile from "./components/TeacherProfile";
 import "./App.css";
 import { signInWithGoogle, auth } from "./components/config/firebase";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Retention from "./pages/Retention";
+import LessonPlanner from "./pages/LessonPlanner";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -44,18 +50,24 @@ function App() {
 
   return (
     <div>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/retention" element={<Retention />} />
+          <Route path="/lessonplanner" element={<LessonPlanner />} />
+          <Route path="/profile" element={<TeacherProfile />}></Route>
+        </Routes>
+      </Router>
       <h1>adaptED</h1>
-      <div>
-        <TeacherProfile />
-        <h2>Your Classes</h2>
-        {classes.map((course, index) => (
-          <TeacherClassButton
-            key={index}
-            className={course.className}
-            description={course.description}
-          />
-        ))}
-      </div>
+      <h2>Your Classes</h2>
+      {classes.map((course, index) => (
+        <TeacherClassButton
+          key={index}
+          className={course.className}
+          description={course.description}
+        />
+      ))}
       <LessonPlanGenerator />
     </div>
   );

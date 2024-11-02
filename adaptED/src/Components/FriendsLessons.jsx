@@ -7,7 +7,7 @@ const FriendsLessons = ({ user }) => {
   const [friendsLessonPlans, setFriendsLessonPlans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const friendsCarouselRef = useRef(null);
+  const friendsCarouselRef = useRef([]);
   const touchStartX = useRef(0);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const FriendsLessons = ({ user }) => {
             const friendData = friendDoc.data();
             if (friendData.lesson_plans) {
               friendsLessonPlans.push({
-                friendName: friendData.name || "Unnamed User", // Fallback if name is not available
+                friendName: friendData.name || "Unnamed User",
                 lessonPlans: friendData.lesson_plans,
               });
             }
@@ -58,15 +58,15 @@ const FriendsLessons = ({ user }) => {
     }
   };
 
-  const scrollCarousel = (direction) => {
-    friendsCarouselRef.current.scrollBy({
+  const scrollCarousel = (direction, index) => {
+    friendsCarouselRef.current[index].scrollBy({
       left: direction * 350,
       behavior: "smooth",
     });
   };
 
   return (
-    <div className="p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
       <h2 className="text-2xl font-bold text-center mt-12 mb-6 text-[#ea057e]">
         Friends' Lesson Plans
       </h2>
@@ -74,14 +74,14 @@ const FriendsLessons = ({ user }) => {
         <p>Loading friends' lesson plans...</p>
       ) : (
         friendsLessonPlans.map((friend, index) => (
-          <div key={index} className="mb-8">
-            <h3 className="text-lg font-semibold text-[#611171] mb-4">
+          <div key={index} className="mb-8 w-full max-w-[1200px]">
+            <h3 className="text-lg font-semibold text-[#611171] mb-4 text-center">
               {friend.friendName}'s Lesson Plans
             </h3>
             <div className="relative flex justify-center items-center w-full">
               {friend.lessonPlans.length > 1 && (
                 <button
-                  onClick={() => scrollCarousel(-1)}
+                  onClick={() => scrollCarousel(-1, index)}
                   className="absolute left-0 p-2 bg-[#611171] text-white rounded-full hover:bg-[#4a0f5b] transition"
                 >
                   &lt;
@@ -93,7 +93,7 @@ const FriendsLessons = ({ user }) => {
                     ? "justify-center"
                     : "justify-start"
                 } items-center gap-3 overflow-x-auto snap-x snap-mandatory scroll-smooth w-[90%] max-w-[1200px] mx-auto`}
-                ref={friendsCarouselRef}
+                ref={(el) => (friendsCarouselRef.current[index] = el)}
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleTouchEnd}
               >
@@ -103,7 +103,7 @@ const FriendsLessons = ({ user }) => {
                     className="min-w-[350px] max-w-[350px] max-h-[600px] flex-shrink-0 snap-center p-5 border rounded-lg shadow-md bg-white mx-3 overflow-hidden"
                   >
                     <Link to={`/lesson/${idx}`} state={{ lesson }}>
-                      <h2 className="text-xl font-semibold mb-3 text-blue-500 hover:underline">
+                      <h2 className="text-xl font-semibold mb-3 text-blue-500 hover:underline text-center">
                         Lesson Plan {idx + 1}
                       </h2>
                     </Link>
@@ -117,7 +117,7 @@ const FriendsLessons = ({ user }) => {
               </div>
               {friend.lessonPlans.length > 1 && (
                 <button
-                  onClick={() => scrollCarousel(1)}
+                  onClick={() => scrollCarousel(1, index)}
                   className="absolute right-0 p-2 bg-[#611171] text-white rounded-full hover:bg-[#4a0f5b] transition"
                 >
                   &gt;

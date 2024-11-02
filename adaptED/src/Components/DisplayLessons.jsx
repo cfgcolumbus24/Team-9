@@ -63,50 +63,50 @@ const DisplayLessons = () => {
     };
 
     return (
-      <div className="p-4">
-        <h1 className="text-2xl font-bold text-center mb-6 text-[#ea057e]">Lesson Plans</h1>
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          <div className="relative flex justify-center items-center w-full">
-            {/* Left button */}
-            {lessonPlans.length > 1 && (
-              <button onClick={() => scrollCarousel(-1)} className="absolute left-0 p-2 bg-[#611171] text-white rounded-full hover:bg-[#4a0f5b] transition">
-                &lt;
-              </button>
-            )}
-            <div
-              className={`carousel flex ${lessonPlans.length === 1 ? 'justify-center' : 'justify-start'} items-center gap-3 overflow-x-auto snap-x snap-mandatory scroll-smooth w-[90%] max-w-[1200px] mx-auto`}
-              ref={carouselRef}
-              onTouchStart={handleTouchStart}
-              onTouchEnd={handleTouchEnd}
-            >
-              {lessonPlans.length > 0 ? (
-                lessonPlans.map((lesson, index) => (
-                  <div key={index} className="min-w-[350px] max-w-[350px] max-h-[600px] flex-shrink-0 snap-center p-5 border rounded-lg shadow-md bg-white mx-3 overflow-hidden">
-                    <Link to={`/lesson/${index}`} state={{ lesson }}>
-                      <h2 className="text-xl font-semibold mb-3 text-blue-500 hover:underline">Lesson Plan {index + 1}</h2>
-                    </Link>
-                    <div className="max-h-[500px] overflow-y-auto">
-                      <pre className="text-sm text-gray-700 whitespace-pre-wrap">
-                        {lesson.content.lessonContent || "No content available"}
-                      </pre>
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+            <h1 className="text-2xl font-bold text-center mb-6 text-[#ea057e]">Lesson Plans</h1>
+            {loading ? (
+                <p>Loading...</p>
+            ) : (
+                <div className="relative flex justify-center items-center w-full max-w-[1200px]">
+                    {/* Left button */}
+                    {lessonPlans.length > 1 && (
+                        <button onClick={() => scrollCarousel(-1)} className="absolute left-0 p-2 bg-[#611171] text-white rounded-full hover:bg-[#4a0f5b] transition">
+                            &lt;
+                        </button>
+                    )}
+                    <div
+                        className={`carousel flex ${lessonPlans.length === 1 ? 'justify-center' : 'justify-start'} items-center gap-3 overflow-x-auto snap-x snap-mandatory scroll-smooth w-[90%] max-w-[1200px] mx-auto`}
+                        ref={carouselRef}
+                        onTouchStart={handleTouchStart}
+                        onTouchEnd={handleTouchEnd}
+                    >
+                        {lessonPlans.length > 0 ? (
+                            lessonPlans.map((lesson, index) => (
+                                <div key={index} className="min-w-[350px] max-w-[350px] max-h-[600px] flex-shrink-0 snap-center p-5 border rounded-lg shadow-md bg-white mx-3 overflow-hidden">
+                                    <Link to={`/lesson/${index}`} state={{ lesson }}>
+                                        <h2 className="text-xl font-semibold mb-3 text-blue-500 hover:underline text-center">Lesson Plan {index + 1}</h2>
+                                    </Link>
+                                    <div className="max-h-[500px] overflow-y-auto">
+                                        <pre className="text-sm text-gray-700 whitespace-pre-wrap">
+                                            {lesson.content.lessonContent || "No content available"}
+                                        </pre>
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <p className="text-[#ea057e]">{error || "No lesson plans found."}</p>
+                        )}
                     </div>
-                  </div>
-                ))
-              ) : (
-                <p className="text-[#ea057e]">{error || "No lesson plans found."}</p>
-              )}
-            </div>
-            {/* Right button */}
-            {lessonPlans.length > 1 && (
-              <button onClick={() => scrollCarousel(1)} className="absolute right-0 p-2 bg-[#611171] text-white rounded-full hover:bg-[#4a0f5b] transition">
-                &gt;
-              </button>
+                    {/* Right button */}
+                    {lessonPlans.length > 1 && (
+                        <button onClick={() => scrollCarousel(1)} className="absolute right-0 p-2 bg-[#611171] text-white rounded-full hover:bg-[#4a0f5b] transition">
+                            &gt;
+                        </button>
+                    )}
+                </div>
             )}
-          </div>
-        )}
-      </div>
+        </div>
     );
 };
 

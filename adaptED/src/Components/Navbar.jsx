@@ -4,22 +4,15 @@ import "../pages/Navbar.css"; // Adjusted path to point to the pages folder
 
 const Navbar = () => {
   return (
-    <nav className="bg-[#611171] shadow-lg">
-      <div className="container mx-auto flex justify-between items-center py-4 px-6">
-        <h1 className="text-3xl font-bold text-[#efeeea]">adaptED</h1>
-        <div className="flex space-x-4">
-          <Link to="/" className="text-[#efeeea] hover:text-[#00abab] font-semibold transition duration-200">
-            Home
-          </Link>
-          <Link to="/retention" className="text-[#efeeea] hover:text-[#00abab] font-semibold transition duration-200">
-            Retention Tracker
-          </Link>
-          <Link to="/lessonplanner" className="text-[#efeeea] hover:text-[#00abab] font-semibold transition duration-200">
-            Lesson Planner
-          </Link>
-          <Link to="/profile" className="text-[#efeeea] hover:text-[#00abab] font-semibold transition duration-200">
-            Profile
-          </Link>
+    <nav className="navbar">
+      <div className="navbar-container">
+        <h1 className="navbar-title">adaptED</h1>
+        <div>
+          <Link to="/" className="navbar-link">Home</Link>
+          <Link to="/retention" className="navbar-link">Retention Tracker</Link>
+          <Link to="/lessonplanner" className="navbar-link">Lesson Planner</Link>
+          <Link to="/profile" className="navbar-link">Profile</Link>
+            <div className="search-bar"><input type="search" placeholder="Search"></input></div>
         </div>
       </div>
     </nav>

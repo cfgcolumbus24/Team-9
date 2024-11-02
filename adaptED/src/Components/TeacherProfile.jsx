@@ -87,7 +87,7 @@ const TeacherProfile = () => {
     <div className="teacher-profile bg-white text-[#222222] p-8 rounded-xl shadow-lg max-w-lg mx-auto mt-12">
       <img
         src="https://t4.ftcdn.net/jpg/04/83/90/95/360_F_483909569_OI4LKNeFgHwvvVju60fejLd9gj43dIcd.jpg"
-        className="size-40"
+        className="w-40 h-40 mx-auto mb-4"
       ></img>
       <h2 className="text-3xl font-extrabold mb-6 text-[#ea057e] text-center">
         Your Profile

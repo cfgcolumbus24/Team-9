@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../pages/Navbar.css"; // Adjusted path to point to the pages folder
+import "../pages/Navbar.css";
 import logo from "../Images/logo.png";
-
 
 const Navbar = () => {
   return (
@@ -13,16 +12,28 @@ const Navbar = () => {
           <h1 className="text-3xl font-bold text-[#efeeea]">adaptED</h1>
         </div>
         <div className="flex space-x-4">
-          <Link to="/" className="text-[#efeeea] hover:text-white font-semibold transition duration-200 hover:translate-y-[-2px]">
+          <Link
+            to="/"
+            className="text-[#efeeea] hover:text-white font-semibold transition duration-200 hover:translate-y-[-2px]"
+          >
             Home
           </Link>
-          <Link to="/retention" className="text-[#efeeea] hover:text-white font-semibold transition duration-200 hover:translate-y-[-2px]">
+          <Link
+            to="/retention"
+            className="text-[#efeeea] hover:text-white font-semibold transition duration-200 hover:translate-y-[-2px]"
+          >
             Retention Tracker
           </Link>
-          <Link to="/lessonplanner" className="text-[#efeeea] hover:text-white font-semibold transition duration-200 hover:translate-y-[-2px]">
+          <Link
+            to="/lessonplanner"
+            className="text-[#efeeea] hover:text-white font-semibold transition duration-200 hover:translate-y-[-2px]"
+          >
             Lesson Planner
           </Link>
-          <Link to="/profile" className="text-[#efeeea] hover:text-white font-semibold transition duration-200 hover:translate-y-[-2px]">
+          <Link
+            to="/profile"
+            className="text-[#efeeea] hover:text-white font-semibold transition duration-200 hover:translate-y-[-2px]"
+          >
             Profile
           </Link>
         </div>

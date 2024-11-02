@@ -7,7 +7,7 @@ import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 const LessonPlanGenerator = () => {
   const [whatToTeachInput, setWhatToTeachInput] = useState("");
   const [whoIsAttendingInput, setWhoIsAttendingInput] = useState("");
-  const [languageInput, setLanguageInput] = useState(""); // New state for language
+  const [languageInput, setLanguageInput] = useState("");
   const [result, setResult] = useState("");
   const [editableResult, setEditableResult] = useState("");
   const [saveStatus, setSaveStatus] = useState(null);

@@ -28,3 +28,13 @@
     color: #666666; /* Darker hover color */
   }
   
+  .search-bar {
+    margin-left: 1rem;
+    width: 150px;
+  }
+
+  .search-bar img {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+  }

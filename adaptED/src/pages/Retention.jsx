@@ -1,5 +1,5 @@
 import React from "react";
-import PerClassRetentionTable from "../components/PerClassRetentionTable";
+import PerClassRetentionTable from "../Components/PerClassRetentionTable";
 
 const Retention = () => {
   return (

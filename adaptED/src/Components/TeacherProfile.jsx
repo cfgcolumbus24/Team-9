@@ -42,9 +42,8 @@ const TeacherProfile = () => {
 
   return (
     <div className="teacher-profile bg-white text-[#222222] p-8 rounded-xl shadow-lg max-w-lg mx-auto mt-12">
-      <h2 className="text-3xl font-extrabold mb-6 text-[#ea057e] text-center">
-        Your Profile
-      </h2>
+      <img src="https://t4.ftcdn.net/jpg/04/83/90/95/360_F_483909569_OI4LKNeFgHwvvVju60fejLd9gj43dIcd.jpg" className="size-40"></img>
+      <h2 className="text-3xl font-extrabold mb-6 text-[#ea057e] text-center">Your Profile</h2>
       <div className="space-y-4">
         <p className="flex justify-between items-center border-b border-[#8f8e8c] pb-2">
           <span className="font-bold text-[#611171]">Name:</span>

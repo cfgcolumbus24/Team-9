@@ -95,6 +95,8 @@ const LessonPlanGenerator = () => {
           lessonContent: editableResult,
           timestamp: new Date().toISOString(),
         },
+        likes: 0,
+        comments: [],
       };
 
       const userRef = doc(db, "users", userEmail);
@@ -103,6 +105,7 @@ const LessonPlanGenerator = () => {
       });
 
       setSaveStatus("success");
+      console.log("Lesson plan saved successfully!");
     } catch (error) {
       console.error("Error saving lesson plan:", error);
       setSaveStatus("error");
@@ -162,7 +165,9 @@ const LessonPlanGenerator = () => {
 
       {result && (
         <div className="w-full max-w-2xl mt-8">
-          <h2 className="text-xl font-semibold mb-4 text-gray-700">Generated Lesson Plan (Editable)</h2>
+          <h2 className="text-xl font-semibold mb-4 text-gray-700">
+            Generated Lesson Plan (Editable)
+          </h2>
 
           <textarea
             value={editableResult}
@@ -186,10 +191,14 @@ const LessonPlanGenerator = () => {
           </button>
 
           {saveStatus === "success" && (
-            <p className="text-green-600 font-semibold mt-4">Lesson plan saved successfully!</p>
+            <p className="text-green-600 font-semibold mt-4">
+              Lesson plan saved successfully!
+            </p>
           )}
           {saveStatus === "error" && (
-            <p className="text-red-600 font-semibold mt-4">Failed to save lesson plan. Please try again.</p>
+            <p className="text-red-600 font-semibold mt-4">
+              Failed to save lesson plan. Please try again.
+            </p>
           )}
         </div>
       )}

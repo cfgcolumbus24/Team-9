@@ -60,7 +60,7 @@ function PerClassRetentionTable() {
 
     return (
         <div className="p-6 bg-gray-100 min-h-screen">
-            <h2 className="text-2xl font-bold text-center mb-6">Student Retention Tracker</h2>
+            <h2 className="text-2xl font-bold text-center mb-6 text-[#ea057e]">Student Retention Tracker</h2>
             <div className="overflow-x-auto">
                 <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
                     <thead>

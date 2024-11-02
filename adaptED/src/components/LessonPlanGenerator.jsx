@@ -63,7 +63,7 @@ const LessonPlanGenerator = () => {
 
   return (
     <div className="flex flex-col items-center p-8 bg-gray-100 min-h-screen">
-      <h1 className="text-2xl font-bold mb-8 text-gray-800">Lesson Plan Generator</h1>
+    <h1 className="text-2xl font-bold mb-8 text-[#ea057e]">Lesson Plan Generator</h1>
      
       <div className="w-full max-w-md space-y-4">
         <input

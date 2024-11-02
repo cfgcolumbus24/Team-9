@@ -10,6 +10,7 @@ import LessonDetail from "./pages/LessonDetail"; // Assuming LessonDetail is in 
 import { signInWithGoogle, auth } from "./Components/config/firebase";
 import "./App.css";
 import Profile from "./pages/Profile";
+import PlanningDevelopment from "./pages/PlanningDevelopment";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -49,6 +50,7 @@ function App() {
           <Route path="/lessonplanner" element={<LessonPlanner />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/lessons" element={<DisplayLessons />} />
+          <Route path="/planningdevelopment" element={<PlanningDevelopment />} />
           <Route path="/lesson/:lessonId" element={<LessonDetail />} /> {/* Route for lesson detail */}
         </Routes>
       </Router>

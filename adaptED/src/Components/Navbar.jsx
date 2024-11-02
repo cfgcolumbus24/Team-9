@@ -31,6 +31,12 @@ const Navbar = () => {
             Lesson Planner
           </Link>
           <Link
+            to="/planningdevelopment"
+            className="text-[#efeeea] hover:text-white font-semibold transition duration-200 hover:translate-y-[-2px]"
+          >
+            Planning Development
+          </Link>
+          <Link
             to="/profile"
             className="text-[#efeeea] hover:text-white font-semibold transition duration-200 hover:translate-y-[-2px]"
           >

@@ -54,7 +54,7 @@ function ToDoList() {
 
   return (
     <div className="toDoList font-sans mx-8 my-12 text-center">
-      <h1 className="text-4xl font-bold mb-8">To-Do List</h1>
+      <h1 className="text-4xl font-bold mb-8">Plan Your Tasks</h1>
       <div className="mb-4 flex justify-center">
         <input
           type="text"

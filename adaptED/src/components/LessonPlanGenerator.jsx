@@ -19,7 +19,9 @@ const LessonPlanGenerator = () => {
 
   const handleGenerateContent = async () => {
     if (!whatToTeachInput || !whoIsAttendingInput || !languageInput) {
-      setError("Please fill in all fields: 'What to Teach', 'Who is Attending', and 'Language'.");
+      setError(
+        "Please fill in all fields: 'What to Teach', 'Who is Attending', and 'Language'."
+      );
       return;
     }
 
@@ -109,7 +111,9 @@ const LessonPlanGenerator = () => {
 
   return (
     <div className="flex flex-col items-center p-8 bg-gray-100 min-h-screen">
-      <h1 className="text-2xl font-bold mb-8 text-[#ea057e]">Lesson Plan Generator</h1>
+      <h1 className="text-2xl font-bold mb-8 text-[#ea057e]">
+        Lesson Plan Generator
+      </h1>
 
       <div className="w-full max-w-md space-y-4">
         <input
@@ -178,7 +182,7 @@ const LessonPlanGenerator = () => {
             onClick={handleSaveAsJSON}
             className="w-full mt-4 py-2 px-4 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out"
           >
-            Save to Firestore as JSON
+            Save to My Profile
           </button>
 
           {saveStatus === "success" && (

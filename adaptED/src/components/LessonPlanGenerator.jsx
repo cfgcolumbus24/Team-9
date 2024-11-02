@@ -20,10 +20,16 @@ const LessonPlanGenerator = () => {
       const genAI = new GoogleGenerativeAI(apiKey);
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-      const prompt = `
-      Create a structured lesson plan for teaching ${whatToTeachInput} to ${whoIsAttendingInput}.
-      `;
 
+      
+      const prompt = `
+      Create a structured lesson plan for teaching ${whatToTeachInput} to ${whoIsAttendingInput}. Begin by specifying the subject and grade level, as well as the topic and estimated time for the lesson. Next, list 2-3 specific learning objectives that describe what students should be able to understand or accomplish by the end of the lesson. Provide a list of essential materials needed for the lesson, noting any optional materials that could further enhance understanding.
+      
+      In the lesson procedure, break down the plan into five sections. Start with an Introduction (5 minutes) that uses a relatable, real-world scenario to introduce the main concept. In the Core Concepts section (10 minutes), introduce key terms or principles through clear explanations and examples. For Guided Practice (15 minutes), describe a collaborative activity where students work in pairs or groups to practice the concept with sample problems. Include Independent Practice (10 minutes) with individual exercises to reinforce the lesson. Finish with a brief Assessment (5 minutes) to gauge students' understanding, such as a quick worksheet check or observing their explanations.
+      
+      Add a section on Differentiation, detailing strategies for supporting students at different ability levels, such as simplifying problems for those who need extra help or adding challenges for advanced students. Include Adaptations that consider technology or other adjustments, like online games or simulations, to suit different learning styles. Finally, describe the methods you will use to assess students' understanding formally and informally, such as worksheet collection or real-time observation. Keep your explanations and examples clear to ensure students are engaged, understand the material, and can apply what they've learned.
+    `;
+    
       const response = await model.generateContent(prompt);
       const generatedText = response.response.text();
       setResult(generatedText);

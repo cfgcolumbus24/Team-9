@@ -1,5 +1,5 @@
 import React from "react";
-
+// import AddFriendButton from "./AddFriendButton";
 const FindFriends = ({ suggestedFriends, addFriend }) => {
   return (
     <div className="find-friends">
@@ -11,12 +11,7 @@ const FindFriends = ({ suggestedFriends, addFriend }) => {
           suggestedFriends.slice(1).map((user, index) => (
             <li key={index}>
               {user.name} - {user.email}{" "}
-              <button
-                className="text-blue-500 underline"
-                onClick={() => addFriend(user.email)}
-              >
-                Add Friend
-              </button>
+              <AddFriendButton></AddFriendButton>
             </li>
           ))
         ) : (

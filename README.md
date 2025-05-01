@@ -1,11 +1,13 @@
 # Team-9
 
+## Demo Video
+https://drive.google.com/file/d/1rPSY6HBcCsd72D2auAUjiIo0wVrRNZ_x/view?usp=sharing
+
 ## Getting Started
 
 Follow these instructions to set up and run the project on your local machine for development and testing purposes.
 
-
-# About our Project
+## About our Project
 For our project, we've decided to work with Opportunity International. For our tech stack we used: Node.js, Firebase, and the Google Gemini API. 
 We utilized a Gemini API in order to utilize AI to help the teachers create the necessary resources to teach a class better.
 
